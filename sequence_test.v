@@ -1,4 +1,4 @@
-module sequence
+module vom
 
 import complete { tag, take }
 

@@ -1,4 +1,4 @@
-module utils
+module vom
 
 // Parser which returns a single value
 pub type Fn = fn (string) ?(string, string)

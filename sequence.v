@@ -1,6 +1,4 @@
-module sequence
-
-import utils { Fn, FnMany }
+module vom
 
 // Applies a tuple of parsers one by one and returns their results as a tuple.
 pub fn tuple(parsers ...Fn) FnMany {

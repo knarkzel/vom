@@ -1,12 +1,4 @@
-module complete
-
-import utils { Fn }
-
-// See following sources:
-// - https://docs.rs/nom/latest/nom/bits/complete/index.html
-// - https://docs.rs/nom/latest/nom/bytes/complete/index.html
-// - https://docs.rs/nom/latest/nom/character/complete/index.html
-// - https://docs.rs/nom/latest/nom/number/complete/index.html
+module vom
 
 // The input data will be compared to the tag combinator’s argument and will
 // return the part of the input that matches the argument.
@@ -18,7 +10,7 @@ pub fn tag(pattern string) Fn {
 		if input[..pattern.len] == pattern {
 			return input[pattern.len..], input[..pattern.len]
 		} else {
-			return error('`tag` failed because `${input[..pattern.len]}` is not equal to pattern `$pattern`')
+			return error('`tag` failed because `$input[..pattern.len]` is not equal to pattern `$pattern`')
 		}
 	}
 }
