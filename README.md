@@ -1,7 +1,7 @@
 # vom
 
-`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom") in V.  It's
-a parser combinators library written in V.
+`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), aka. a parser
+combinator library written in V.
 
 ## Why parser combinators?
 
