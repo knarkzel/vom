@@ -1,7 +1,5 @@
 module vom
 
-import complete { tag, take }
-
 fn test_tuple() ? {
 	input := '#hello :D'
 	parser := tuple(tag('#'), take(5), tag(' :D'))
