@@ -1,7 +1,5 @@
 module main
 
-type Parser = fn (string) ?(string, string)
-
 fn tag(pattern string) fn (string) ?(string, string) {
 	return fn [pattern] (input string) ?(string, string) {
 		if input.len < pattern.len {
