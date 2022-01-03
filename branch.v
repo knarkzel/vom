@@ -19,12 +19,13 @@ pub fn permutation(parsers ...Fn) FnMany {
 			for i in perm {
 				functions << parsers[i]
 			}
+			// parser should just be below, not above
 			// parser := tuple(...perm.map(parsers[it]))
 			parser := tuple(...functions)
 			temp, output := parser(input) or { continue }
 			return temp, output
 		}
-		return error('`permutation` failed on `$input` because no permuations were found')
+		return error('`permutation` failed on `$input` because no permutations were found')
 	}
 }
 
