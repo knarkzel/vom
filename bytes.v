@@ -90,3 +90,17 @@ pub fn take_until(pattern string) Fn {
 		return error('`take_until` failed on input `$input` with pattern `$pattern`')
 	}
 }
+
+// Returns the longest input slice (if any) that matches the predicate.
+pub fn take_while(cond fn (byte) bool) Fn {
+	parsers := [cond]
+	return fn [parsers] (input string) ?(string, string) {
+		cond := parsers[0]
+		for i, c in input.bytes() {
+			if !cond(c) {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_while` failed on input `$input`')
+	}
+}

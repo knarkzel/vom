@@ -50,3 +50,12 @@ fn test_take_until() ? {
 	assert output == 'hello, world'
 	assert rest == 'eof'
 }
+
+fn test_take_while() ? {
+	parser := take_while(fn (b byte) bool {
+		return b == `1` || b == `2` || b == `3`
+	})
+	rest, output := parser('12123111241234') ?
+	assert output == '121231112'
+	assert rest == '41234'
+}
