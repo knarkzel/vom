@@ -34,3 +34,12 @@ fn test_take() ? {
 	assert output == 'Hello'
 	assert rest == ', world!'
 }
+
+fn test_take_till() ? {
+	parser := take_till(fn (b byte) bool {
+		return b == `:`
+	})
+	rest, output := parser('latin:123') ?
+	assert output == 'latin'
+	assert rest == ':123'
+}

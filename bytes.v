@@ -64,3 +64,17 @@ pub fn take(count int) Fn {
 		}
 	}
 }
+
+// Returns the longest input slice (if any) till a predicate is met.
+pub fn take_till(cond fn (byte) bool) Fn {
+	parsers := [cond]
+	return fn [parsers] (input string) ?(string, string) {
+		cond := parsers[0]
+		for i, c in input.bytes() {
+			if cond(c) {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_till` failed on input `$input`')
+	}
+}

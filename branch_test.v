@@ -1,7 +1,7 @@
 module vom
 
-fn test_branch() ? {
-	parser := branch(tag('llo'), take(9), tag('hi'), take(5))
+fn test_alt() ? {
+	parser := alt(tag('llo'), take(9), tag('hi'), take(5))
 	rest, output := parser('hello...') ?
 	assert output == 'hello'
 	assert rest == '...'

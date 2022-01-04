@@ -2,20 +2,6 @@ module vom
 
 // Based on https://docs.rs/nom/7.1.0/nom/sequence/index.html
 
-// Applies a tuple of parsers one by one and returns their results as a tuple.
-pub fn tuple(parsers ...Fn) FnMany {
-	return fn [parsers] (input string) ?(string, []string) {
-		mut temp := input
-		mut output := []string{}
-		for parser in parsers {
-			rest, slice := parser(temp) ?
-			output << slice
-			temp = rest
-		}
-		return temp, output
-	}
-}
-
 // Matches an object from the first parser and discards it, then gets an object
 // from the second parser, and finally matches an object from the third parser and
 // discards it.
@@ -27,6 +13,18 @@ pub fn delimited(first Fn, second Fn, third Fn) Fn {
 		y, output := second(x) ?
 		z, _ := third(y) ?
 		return z, output
+	}
+}
+
+// Matches an object from the first parser and discards it, then gets an object
+// from the second parser.
+pub fn preceded(first Fn, second Fn) Fn {
+	parsers := [first, second]
+	return fn [parsers] (input string) ?(string, string) {
+		first, second := parsers[0], parsers[1]
+		x, _ := first(input) ?
+		y, output := second(x) ?
+		return y, output
 	}
 }
 
@@ -46,18 +44,6 @@ pub fn separated_pair(first Fn, sep Fn, second Fn) FnMany {
 	}
 }
 
-// Matches an object from the first parser and discards it, then gets an object
-// from the second parser.
-pub fn preceded(first Fn, second Fn) Fn {
-	parsers := [first, second]
-	return fn [parsers] (input string) ?(string, string) {
-		first, second := parsers[0], parsers[1]
-		x, _ := first(input) ?
-		y, output := second(x) ?
-		return y, output
-	}
-}
-
 // Gets an object from the first parser, then matches an object from the second
 // parser and discards it.
 pub fn terminated(first Fn, second Fn) Fn {
@@ -67,5 +53,19 @@ pub fn terminated(first Fn, second Fn) Fn {
 		x, output := first(input) ?
 		y, _ := second(x) ?
 		return y, output
+	}
+}
+
+// Applies a tuple of parsers one by one and returns their results as a tuple.
+pub fn tuple(parsers ...Fn) FnMany {
+	return fn [parsers] (input string) ?(string, []string) {
+		mut temp := input
+		mut output := []string{}
+		for parser in parsers {
+			rest, slice := parser(temp) ?
+			output << slice
+			temp = rest
+		}
+		return temp, output
 	}
 }

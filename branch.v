@@ -3,13 +3,13 @@ module vom
 // Based on https://docs.rs/nom/7.1.0/nom/branch/index.html
 
 // Tests a list of parsers one by one until one succeeds.
-pub fn branch(parsers ...Fn) Fn {
+pub fn alt(parsers ...Fn) Fn {
 	return fn [parsers] (input string) ?(string, string) {
 		for parser in parsers {
 			temp, output := parser(input) or { continue }
 			return temp, output
 		}
-		return error('`branch` failed on input `$input` with `$parsers.len` parsers')
+		return error('`alt` failed on input `$input` with `$parsers.len` parsers')
 	}
 }
 
