@@ -1,6 +1,6 @@
 module sequence
 
-import utils { Fn, FnMany }
+import vom { Fn, FnMany }
 
 // Based on https://docs.rs/nom/7.1.0/nom/sequence/index.html
 

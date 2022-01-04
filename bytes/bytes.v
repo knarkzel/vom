@@ -1,6 +1,6 @@
 module bytes
 
-import utils { Fn }
+import vom { Fn }
 
 // Based on https://docs.rs/nom/latest/nom/bytes/complete/index.html
 

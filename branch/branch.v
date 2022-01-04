@@ -1,7 +1,7 @@
 module branch
 
 import sequence { tuple }
-import utils { Fn, FnMany }
+import vom { Fn, FnMany }
 
 // Based on https://docs.rs/nom/7.1.0/nom/branch/index.html
 

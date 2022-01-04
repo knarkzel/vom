@@ -1,4 +1,4 @@
-module vom
+module sequence
 
 fn test_tuple() ? {
 	input := '#hello :D'
