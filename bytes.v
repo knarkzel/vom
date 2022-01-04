@@ -78,3 +78,15 @@ pub fn take_till(cond fn (byte) bool) Fn {
 		return error('`take_till` failed on input `$input`')
 	}
 }
+
+// Returns the input slice up to the first occurrence of the pattern.
+pub fn take_until(pattern string) Fn {
+	return fn [pattern] (input string) ?(string, string) {
+		for i := 0; i + pattern.len <= input.len; i++ {
+			if input[i..i + pattern.len] == pattern {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_until` failed on input `$input` with pattern `$pattern`')
+	}
+}

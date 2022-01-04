@@ -43,3 +43,10 @@ fn test_take_till() ? {
 	assert output == 'latin'
 	assert rest == ':123'
 }
+
+fn test_take_until() ? {
+	parser := take_until('eof')
+	rest, output := parser('hello, worldeof') ?
+	assert output == 'hello, world'
+	assert rest == 'eof'
+}
