@@ -1,4 +1,8 @@
-module vom
+module sequence
+
+import utils { Fn, FnMany }
+
+// Based on https://docs.rs/nom/7.1.0/nom/sequence/index.html
 
 // Applies a tuple of parsers one by one and returns their results as a tuple.
 pub fn tuple(parsers ...Fn) FnMany {

@@ -1,4 +1,8 @@
-module vom
+module bytes
+
+import utils { Fn }
+
+// Based on https://docs.rs/nom/latest/nom/bytes/complete/index.html
 
 // The input data will be compared to the tag combinator’s argument and will
 // return the part of the input that matches the argument.
