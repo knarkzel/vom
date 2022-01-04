@@ -17,7 +17,7 @@ pub fn branch(parsers ...Fn) Fn {
 pub fn permutation(parsers ...Fn) FnMany {
 	return fn [parsers] (input string) ?(string, []string) {
 		for perm in quick_perm(parsers.len) {
-			mut functions := []Fn{len: parsers.len}
+			mut functions := []Fn{}
 			for i in perm {
 				functions << parsers[i]
 			}
