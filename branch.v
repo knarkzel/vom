@@ -21,9 +21,9 @@ pub fn permutation(parsers ...Fn) FnMany {
 			for i in perm {
 				functions << parsers[i]
 			}
-			// parser should just be below, not above
-			// parser := tuple(...perm.map(parsers[it]))
 			parser := tuple(...functions)
+			// the code above should just work as below, bug for now:
+			// parser := tuple(...perm.map(parsers[it]))
 			temp, output := parser(input) or { continue }
 			return temp, output
 		}
