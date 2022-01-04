@@ -1,41 +1,36 @@
 module vom
 
 fn test_tuple() ? {
-	input := '#hello :D...'
 	parser := tuple(tag('#'), take(5), tag(' :D'))
-	rest, output := parser(input) ?
+	rest, output := parser('#hello :D...') ?
 	assert output == ['#', 'hello', ' :D']
 	assert rest == '...'
 }
 
 fn test_delimited() ? {
-	input := '<h1>Hello!</h1>...'
 	parser := delimited(tag('<h1>'), take(6), tag('</h1>'))
-	rest, output := parser(input) ?
+	rest, output := parser('<h1>Hello!</h1>...') ?
 	assert output == 'Hello!'
 	assert rest == '...'
 }
 
 fn test_separated_pair() ? {
-	input := 'vlang,awesome!'
 	parser := separated_pair(take(5), tag(','), take(7))
-	rest, output := parser(input) ?
+	rest, output := parser('vlang,awesome!') ?
 	assert output == ['vlang', 'awesome']
 	assert rest == '!'
 }
 
 fn test_preceded() ? {
-	input := '- list!'
 	parser := preceded(tag('- '), take(4))
-	rest, output := parser(input) ?
+	rest, output := parser('- list!') ?
 	assert output == 'list'
 	assert rest == '!'
 }
 
 fn test_terminated() ? {
-	input := 'fn {}'
 	parser := terminated(take(2), tag(' {'))
-	rest, output := parser(input) ?
+	rest, output := parser('fn {}') ?
 	assert output == 'fn'
 	assert rest == '}'
 }
