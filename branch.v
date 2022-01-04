@@ -1,7 +1,4 @@
-module branch
-
-import sequence { tuple }
-import vom { Fn, FnMany }
+module vom
 
 // Based on https://docs.rs/nom/7.1.0/nom/branch/index.html
 
@@ -40,13 +37,12 @@ fn quick_perm(n int) [][]int {
 	mut a := []int{len: n, init: it}
 	mut p := []int{len: n + 1, init: it}
 	mut o := [][]int{}
-	println(a)
+	o << a.clone()
 	mut i := 1
 	for i < n {
 		p[i]--
 		j := i % 2 * p[i]
 		a[i], a[j] = a[j], a[i]
-		println(a)
 		o << a.clone()
 		i = 1
 		for p[i] == 0 {
