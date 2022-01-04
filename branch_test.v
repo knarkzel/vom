@@ -15,6 +15,6 @@ fn test_permutation() ? {
 	assert output == ['abc', '123']
 
 	rest, output = parser(rest) ?
-	assert last_output == ['123', 'abc']
-	assert last_rest == '...'
+	assert output == ['123', 'abc']
+	assert rest == '...'
 }

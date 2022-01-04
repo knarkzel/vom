@@ -39,3 +39,15 @@ pub fn is_a(pattern string) Fn {
 		return error('`is_a` failed with pattern `$pattern` on input `$input`')
 	}
 }
+
+// Parse till certain characters are met.
+pub fn is_not(pattern string) Fn {
+	return fn [pattern] (input string) ?(string, string) {
+		for i, c in input {
+			if pattern.bytes().any(it == c) {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`is_not` failed with pattern `$pattern` on input `$input`')
+	}
+}

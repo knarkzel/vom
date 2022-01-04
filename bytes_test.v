@@ -28,3 +28,16 @@ fn test_is_a() ? {
 	assert output == 'DEADBEEF'
 	assert rest == ' and others'
 }
+
+fn test_is_not() ? {
+	mut input := 'Hello, World!'
+	parser := is_not(' \t\r\n')
+	mut rest, mut output := parser(input) ?
+	assert output == 'Hello,'
+	assert rest == ' World!'
+
+	input = 'Sometimes\t'
+	rest, output = parser(input) ?
+	assert output == 'Sometimes'
+	assert rest == '\t'
+}
