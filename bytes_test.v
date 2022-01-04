@@ -15,3 +15,16 @@ fn test_take() ? {
 	assert output == 'Hello'
 	assert rest == ', world!'
 }
+
+fn test_is_a() ? {
+	mut input := '123 and voila'
+	parser := is_a('123456789ABCDEF')
+	mut rest, mut output := parser(input) ?
+	assert output == '123'
+	assert rest == ' and voila'
+
+	input = 'DEADBEEF and others'
+	rest, output = parser(input) ?
+	assert output == 'DEADBEEF'
+	assert rest == ' and others'
+}

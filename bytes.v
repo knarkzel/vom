@@ -27,3 +27,15 @@ pub fn take(count int) Fn {
 		}
 	}
 }
+
+// Returns the longest slice that matches any character in the pattern.
+pub fn is_a(pattern string) Fn {
+	return fn [pattern] (input string) ?(string, string) {
+		for i, c in input {
+			if !pattern.bytes().any(it == c) {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`is_a` failed with pattern `$pattern` on input `$input`')
+	}
+}
