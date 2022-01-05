@@ -44,6 +44,15 @@ fn test_take_till() ? {
 	assert rest == ':123'
 }
 
+fn test_take_till1() ? {
+	parser := take_till1(fn (b byte) bool {
+		return b == `:`
+	})
+	rest, output := parser(':latin:123') ?
+	assert output == ':latin'
+	assert rest == ':123'
+}
+
 fn test_take_until() ? {
 	parser := take_until('eof')
 	rest, output := parser('hello, worldeof') ?
@@ -51,10 +60,24 @@ fn test_take_until() ? {
 	assert rest == 'eof'
 }
 
+fn test_take_until1() ? {
+	parser := take_until1('eof')
+	rest, output := parser('heof') ?
+	assert output == 'h'
+	assert rest == 'eof'
+}
+
 fn test_take_while() ? {
 	parser := take_while(is_alphabetic)
 	rest, output := parser('latin123') ?
 	assert output == 'latin'
+	assert rest == '123'
+}
+
+fn test_take_while1() ? {
+	parser := take_while1(is_alphabetic)
+	rest, output := parser('l123') ?
+	assert output == 'l'
 	assert rest == '123'
 }
 

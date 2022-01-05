@@ -79,6 +79,20 @@ pub fn take_till(cond fn (byte) bool) Fn {
 	}
 }
 
+// Returns the longest (at least 1) input slice till a predicate is met.
+pub fn take_till1(cond fn (byte) bool) Fn {
+	parsers := [cond]
+	return fn [parsers] (input string) ?(string, string) {
+		cond := parsers[0]
+		for i, c in input.bytes() {
+			if cond(c) && i > 0 {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_till1` failed on input `$input`')
+	}
+}
+
 // Returns the input slice up to the first occurrence of the pattern.
 pub fn take_until(pattern string) Fn {
 	return fn [pattern] (input string) ?(string, string) {
@@ -91,6 +105,18 @@ pub fn take_until(pattern string) Fn {
 	}
 }
 
+// Returns the non empty input slice up to the first occurrence of the pattern.
+pub fn take_until1(pattern string) Fn {
+	return fn [pattern] (input string) ?(string, string) {
+		for i := 1; i + pattern.len <= input.len; i++ {
+			if input[i..i + pattern.len] == pattern {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_until1` failed on input `$input` with pattern `$pattern`')
+	}
+}
+
 // Returns the longest input slice (if any) that matches the predicate.
 pub fn take_while(cond fn (byte) bool) Fn {
 	parsers := [cond]
@@ -98,6 +124,23 @@ pub fn take_while(cond fn (byte) bool) Fn {
 		cond := parsers[0]
 		for i, c in input.bytes() {
 			if !cond(c) {
+				return input[i..], input[..i]
+			}
+		}
+		return error('`take_while` failed on input `$input`')
+	}
+}
+
+// Returns the longest (at least 1) input slice that matches the predicate.
+pub fn take_while1(cond fn (byte) bool) Fn {
+	parsers := [cond]
+	return fn [parsers] (input string) ?(string, string) {
+		cond := parsers[0]
+		for i, c in input.bytes() {
+			if !cond(c) {
+				if i == 0 {
+					return error('`take_while` failed on input `$input` because it returned empty')
+				}
 				return input[i..], input[..i]
 			}
 		}
