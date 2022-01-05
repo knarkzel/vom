@@ -104,3 +104,24 @@ pub fn take_while(cond fn (byte) bool) Fn {
 		return error('`take_while` failed on input `$input`')
 	}
 }
+
+// Returns the longest (m <= len <= n) input slice that matches the predicate.
+pub fn take_while_m_n(m int, n int, cond fn (byte) bool) Fn {
+	parsers := [cond]
+	return fn [m, n, parsers] (input string) ?(string, string) {
+		cond := parsers[0]
+		mut longest := -1
+		for i, c in input.bytes() {
+			if cond(c) && m <= i {
+				longest = i
+			}
+			if i >= n {
+				break
+			}
+		}
+		if longest != -1 {
+			return input[longest..], input[..longest]
+		}
+		return error('`take_while_m_n` failed on input `$input` with m `$m` and n `$n`')
+	}
+}

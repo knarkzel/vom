@@ -52,10 +52,15 @@ fn test_take_until() ? {
 }
 
 fn test_take_while() ? {
-	parser := take_while(fn (b byte) bool {
-		return b == `1` || b == `2` || b == `3`
-	})
-	rest, output := parser('12123111241234') ?
-	assert output == '121231112'
-	assert rest == '41234'
+	parser := take_while(is_alphabetic)
+	rest, output := parser('latin123') ?
+	assert output == 'latin'
+	assert rest == '123'
+}
+
+fn test_take_while_m_n() ? {
+	parser := take_while_m_n(2, 2, is_hex_digit)
+	rest, output := parser('DEab12') ?
+	assert output == 'DE'
+	assert rest == 'ab12'
 }
