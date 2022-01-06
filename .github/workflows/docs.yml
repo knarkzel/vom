@@ -9,11 +9,14 @@ on:
 jobs:
   build-module-docs:
     runs-on: ubuntu-20.04
+    timeout-minutes: 15
+    env:
+      VFLAGS: -cc tcc -no-retry-compilation
+      B_CFLAGS: -g -std=gnu11 -I ./thirdparty/stdatomic/nix -w
+      B_LFLAGS: -lm -lpthread
     steps:
       - uses: actions/checkout@v2
       - name: Build V
         run: git clone https://github.com/vlang/v && cd v && make
       - name: Build documentation
-        run: ./v/v doc -m -f html .
-      - name: Move documentation to public
-        run: mv _docs public
+        run: ./v/v doc -m -f html . && mv _docs public
