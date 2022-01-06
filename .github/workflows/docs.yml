@@ -9,18 +9,13 @@ on:
 jobs:
   build-module-docs:
     runs-on: ubuntu-20.04
-    timeout-minutes: 15
-    env:
-      VFLAGS: -cc tcc -no-retry-compilation
-      B_CFLAGS: -g -std=gnu11 -I ./thirdparty/stdatomic/nix -w
-      B_LFLAGS: -lm -lpthread
     steps:
       - uses: actions/checkout@v2
       - name: Build V
         run: git clone https://github.com/vlang/v ../v && cd ../v && make
-      - name: Build documentation
+      - name: Craft documentation
         run: ../v/v doc -m -f html . && mv _docs/.html _docs/index.html
-      - name: Deploy
+      - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.9
         with:
           branch: docs
