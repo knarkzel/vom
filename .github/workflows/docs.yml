@@ -12,9 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build V
-        run: git clone https://github.com/vlang/v ../v && cd ../v && make
+        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout 3ae4513 && make
       - name: Craft documentation
         run: ../v/v doc -m -f html .
+      - name: Fix title
+        run: sed -i 's/ | vdoc/vom | vdoc/' _docs/index.html
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.9
         with:
