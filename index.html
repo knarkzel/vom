@@ -52,21 +52,20 @@
 				<div class="doc-container">
 					<div class="doc-content">
 						<section id="readme_" class="doc-node">
-<h1>vom</h1>
-<p><code>vom</code> is a rewrite of <a href="https://github.com/Geal/nom" title="nom">nom</a>, aka. a parser
-combinator library written in V.</p>
-<h2>Why parser combinators?</h2>
-<p>Parser combinators are an approach to parsers that is very different from
-software like lex and yacc. Instead of writing the grammar in a separate file
-and generating the corresponding code, you use very small functions with very
-specific purpose, like &quot;take 5 bytes&quot;, or &quot;recognize the word 'HTTP'&quot;, and
-assemble them in meaningful patterns like &quot;recognize 'HTTP', then a space, then
-a version&quot;. The resulting code is small, and looks like the grammar you would
-have written with other parser approaches.</p>
-<p>This has a few advantages:</p>
+<div align="center">
+    <h1>vom - nom in V</h1>
+</div>
+<div align="center">
+<p><a href="https://github.com/knarkzel/vom/graphs/contributors"><img src="https://img.shields.io/github/contributors/knarkzel/vom" alt="GitHub contributors"></a>
+<a href="https://github.com/knarkzel/vom/issues"><img src="https://img.shields.io/github/issues/knarkzel/vom" alt="GitHub issues"></a>
+<a href="https://github.com/knarkzel/vom/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a>
+<a href="https://github.com/knarkzel/vom"><img src="https://views.whatilearened.today/views/github/knarkzel/vom.svg" alt="HitCount"></a></p>
+</div>
+<p><code>vom</code> is a rewrite of <a href="https://github.com/Geal/nom" title="nom">nom</a>, aka. a parser combinator library written in V.</p>
+<h2>Why use vom?</h2>
 <ul>
 <li>The parsers are small and easy to write</li>
-<li>The parsers components are easy to reuse (if they're general enough, please add them to nom!)</li>
+<li>The parsers components are easy to reuse (if they're general enough, please add them to vom!)</li>
 <li>The parsers components are easy to test separately (unit tests and property-based tests)</li>
 <li>The parser combination code looks close to the grammar you would have written</li>
 <li>You can build partial parsers, specific to the data you need at the moment, and ignore the rest</li>
@@ -345,7 +344,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 6 Jan 2022 02:02:40
+							Powered by vdoc. Generated on: 6 Jan 2022 02:17:21
 						</div>
 					</div>
 					
