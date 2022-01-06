@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>vom - nom in V</h1>
+    <h1>vom</h1>
 </div>
 
 <div align="center">
@@ -11,7 +11,8 @@
 
 </div>
 
-`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), aka. a parser combinator library written in V.
+`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), which is a parser combinator library.
+It is written in V, hence the name.
 
 ## Why use vom?
 
