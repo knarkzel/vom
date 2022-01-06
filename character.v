@@ -37,7 +37,7 @@ pub fn is_space(b byte) bool {
 	return ' \t'.bytes().any(it == b)
 }
 
-// Parsers below
+// Based on https://docs.rs/nom/7.1.0/nom/character/complete/index.html
 
 // Recognizes zero or more lowercase and uppercase ASCII alphabetic characters: a-z, A-Z
 pub fn alpha0(input string) ?(string, string) {
@@ -63,8 +63,8 @@ pub fn alphanumeric1(input string) ?(string, string) {
 	return parser(input)
 }
 
-// Recognizes one character.
-pub fn char(input string) ?(string, string) {
+// Recognizes one letter.
+pub fn letter(input string) ?(string, string) {
 	parser := take_while_m_n(1, 1, is_alphabetic)
 	return parser(input)
 }
@@ -134,7 +134,7 @@ pub fn none_of(pattern string) Fn {
 			return error('`none_of` failed because input is empty')
 		}
 		if pattern.bytes().all(it != input[0]) {
-			return input[1..], input[0].str()
+			return input[1..], input[..1]
 		} else {
 			return error('`none_of` failed on input `$input` with pattern `$pattern`')
 		}
@@ -144,7 +144,7 @@ pub fn none_of(pattern string) Fn {
 // Recognizes a string of any char except '\r\n' or '\n'.
 pub fn not_line_ending(input string) ?(string, string) {
 	parser := take_while(fn (b byte) bool {
-		return '\r\n'.bytes().any(it == b)
+		return '\r\n'.bytes().all(it != b)
 	})
 	return parser(input)
 }
@@ -168,7 +168,7 @@ pub fn one_of(pattern string) Fn {
 			return error('`one_of` failed because input is empty')
 		}
 		if pattern.bytes().any(it == input[0]) {
-			return input[1..], input[0].str()
+			return input[1..], input[..1]
 		} else {
 			return error('`one_of` failed on input `$input` with pattern `$pattern`')
 		}
@@ -184,7 +184,7 @@ pub fn satisfy(cond fn (byte) bool) Fn {
 			return error('`satisfy` failed because input is empty')
 		}
 		if cond(input[0]) {
-			return input[1..], input[0].str()
+			return input[1..], input[..1]
 		} else {
 			return error('`satisfy` failed on input `$input`')
 		}
