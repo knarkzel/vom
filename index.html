@@ -99,11 +99,6 @@ It is written in V, hence the name.</p>
 <p>Tests a list of parsers one by one until one succeeds.</p>
 
 </section>
-						<section id="char" class="doc-node">
-							<div class="title"><h2>fn char <a href="#char">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token builtin">char</span><span class="token punctuation">(</span>input <span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
-<p>Recognizes one character.</p>
-
-</section>
 						<section id="count" class="doc-node">
 							<div class="title"><h2>fn count <a href="#count">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">count</span><span class="token punctuation">(</span>f Fn<span class="token punctuation">,</span> count <span class="token builtin">int</span><span class="token punctuation">)</span> FnMany</code></pre>
 <p>Runs the embedded parser a specified number of times.</p>
@@ -188,6 +183,11 @@ discards it.</p>
 						<section id="is_space" class="doc-node">
 							<div class="title"><h2>fn is_space <a href="#is_space">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">is_space</span><span class="token punctuation">(</span>b <span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
 <p>Tests if byte is ASCII space or tab.</p>
+
+</section>
+						<section id="letter" class="doc-node">
+							<div class="title"><h2>fn letter <a href="#letter">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">letter</span><span class="token punctuation">(</span>input <span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
+<p>Recognizes one letter.</p>
 
 </section>
 						<section id="line_ending" class="doc-node">
@@ -345,7 +345,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 6 Jan 2022 02:23:09
+							Powered by vdoc. Generated on: 6 Jan 2022 03:28:24
 						</div>
 					</div>
 					
