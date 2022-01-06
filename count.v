@@ -18,17 +18,15 @@ pub fn count(f Fn, count int) FnMany {
 	}
 }
 
+// Runs the embedded parser repeatedly, filling the given slice with results.
 pub fn fill(f Fn, mut buf []string) FnMany {
 	parsers := [f]
 	return fn [parsers, mut buf] (input string) ?(string, []string) {
 		f := parsers[0]
 		mut temp := input
-		for i, mut b in buf {
+		for mut b in buf {
 			temp, b = f(temp) ?
-			if i + 1 == buf.len {
-				return temp, []string{}
-			}
 		}
-		return error('`fill` failed on input `$input` because it was unable to fill up buffer `$buf`')
+		return temp, []string{}
 	}
 }
