@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build V
-        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout 3ae4513 && make
+        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout c97f0c5 && make
       - name: Craft documentation
         run: ../v/v doc -m -f html .
       - name: Fix title
