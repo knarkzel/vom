@@ -14,9 +14,7 @@ jobs:
       - name: Build V
         run: git clone https://github.com/vlang/v ../v && cd ../v && make
       - name: Craft documentation
-        run: ../v/v doc -m -f html . && mv _docs/.html _docs/index.html
-      - name: Fix search
-        run: sed -i 's/\.html//g' _docs/search_index.js
+        run: ../v/v doc -m -f html .
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.9
         with:
