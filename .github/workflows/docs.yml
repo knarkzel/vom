@@ -17,6 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build V
-        run: git clone https://github.com/vlang/v && cd v && make
+        run: git clone https://github.com/vlang/v ../v && cd ../v && make
       - name: Build documentation
-        run: ./v/v doc -m -f html . && mv _docs public
+        run: ../v/v doc -m -f html . && mv _docs public
