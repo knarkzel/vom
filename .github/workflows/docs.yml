@@ -19,4 +19,4 @@ jobs:
       - name: Build V
         run: git clone https://github.com/vlang/v ../v && cd ../v && make
       - name: Build documentation
-        run: ../v/v doc -m -f html . && mv _docs public
+        run: ../v/v doc -m -f html . && mv _docs public && mv public/.html index.html
