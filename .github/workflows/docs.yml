@@ -18,7 +18,7 @@ jobs:
       - name: Fix search
         run: sed -i 's/\.html//g' _docs/search_index.js
       - name: Fix title
-        run: sed 's/ | vdoc/vom | vdoc/' _docs/index.html
+        run: sed -i 's/ | vdoc/vom | vdoc/' _docs/index.html
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.9
         with:
