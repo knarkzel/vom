@@ -1,22 +1,22 @@
-# vom
+<div align="center">
+    <h1>vom - nom in V</h1>
+</div>
 
-`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), aka. a parser
-combinator library written in V.
+<div align="center">
 
-## Why parser combinators?
+[![GitHub contributors](https://img.shields.io/github/contributors/knarkzel/vom)](https://github.com/knarkzel/vom/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/knarkzel/vom)](https://github.com/knarkzel/vom/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/knarkzel/vom/pulls)
+[![HitCount](https://views.whatilearened.today/views/github/knarkzel/vom.svg)](https://github.com/knarkzel/vom)
 
-Parser combinators are an approach to parsers that is very different from
-software like lex and yacc. Instead of writing the grammar in a separate file
-and generating the corresponding code, you use very small functions with very
-specific purpose, like "take 5 bytes", or "recognize the word 'HTTP'", and
-assemble them in meaningful patterns like "recognize 'HTTP', then a space, then
-a version". The resulting code is small, and looks like the grammar you would
-have written with other parser approaches.
+</div>
 
-This has a few advantages:
+`vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), aka. a parser combinator library written in V.
+
+## Why use vom?
 
 - The parsers are small and easy to write
-- The parsers components are easy to reuse (if they're general enough, please add them to nom!)
+- The parsers components are easy to reuse (if they're general enough, please add them to vom!)
 - The parsers components are easy to test separately (unit tests and property-based tests)
 - The parser combination code looks close to the grammar you would have written
 - You can build partial parsers, specific to the data you need at the moment, and ignore the rest
