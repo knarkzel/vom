@@ -1,0 +1,19 @@
+name: docs CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-module-docs:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build V
+        run: git clone https://github.com/vlang/v && cd v && make
+      - name: Build documentation
+        run: ./v/v doc -m -f html .
+      - name: Move documentation to public
+        run: mv _docs public
