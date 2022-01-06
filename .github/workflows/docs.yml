@@ -12,11 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build V
-        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout 3ae4513 && make
+        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout c97f0c5 && make
       - name: Craft documentation
-        run: ../v/v doc -m -f html . && mv _docs/.html _docs/index.html
-      - name: Fix search
-        run: sed -i 's/\.html//g' _docs/search_index.js
+        run: ../v/v doc -m -f html .
       - name: Fix title
         run: sed -i 's/ | vdoc/vom | vdoc/' _docs/index.html
       - name: Deploy to Github Pages
@@ -24,5 +22,3 @@ jobs:
         with:
           branch: docs
           folder: _docs
-
-
