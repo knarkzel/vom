@@ -190,3 +190,21 @@ pub fn satisfy(cond fn (byte) bool) Fn {
 		}
 	}
 }
+
+// Recognizes zero or more spaces and tabs.
+pub fn space0(input string) ?(string, string) {
+	parser := take_while(is_space)
+	return parser(input)
+}
+
+// Recognizes one or more spaces and tabs.
+pub fn space1(input string) ?(string, string) {
+	parser := take_while1(is_space)
+	return parser(input)
+}
+
+// Matches a tab character '\t'.
+pub fn tab(input string) ?(string, string) {
+	parser := tag('\t')
+	return parser(input)
+}
