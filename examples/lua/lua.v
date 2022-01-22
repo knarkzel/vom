@@ -1,18 +1,12 @@
 module main
 
 import os
-import strings
 import vom { alphanumeric1, alt, digit1, is_digit, tag }
 
 struct Location {
 mut:
 	x int
 	y int
-	i int
-}
-
-fn (l Location) increment(len int) Location {
-	return Location{l.x + len, l.y, l.i + len}
 }
 
 enum TokenKind {
@@ -61,65 +55,31 @@ fn operator(input string, location Location) ?(string, Token) {
 	return rest, Token{output, location, .operator}
 }
 
-fn lex(input string) ?[]Token {
-	mut temp := input
+fn lex(source string) ?[]Token {
+	mut input := source
 	mut tokens := []Token{}
-	mut location := Location{0, 0, 0}
+	mut location := Location{0, 0}
 	lexers := [keyword, identifier, number, syntax, operator]
 
-	outer: for temp.len > 0 {
+	outer: for input.len > 0 {
 		// Handle whitespace
-		for i, b in temp.bytes() {
-			if b == ` ` || b == `\t` {
-				location.x++
-				location.i++
-			} else if b == `\r` || b == `\n` {
-				location.y++
-				location.i++
-			} else {
-				temp = temp[i..]
-				if i == 0 {
-					break
-				} else {
-					continue outer
-				}
-			}
-		}
+		input, location = eat_whitespace(input, location) or { break }
 
 		// Lex input
 		for lexer in lexers {
-			rest, token := lexer(temp, location) or { continue }
-			temp = rest
-			location = token.location.increment(token.value.len)
+			rest, token := lexer(input, location) or { continue }
+			input = rest
+			location.x += token.value.len
 			tokens << token
 			continue outer
 		}
 
 		// No lexer worked, print error and exit
-		debug(location.i, location.y, input, 'parsing failed')
+		debug(location, source, 'parsing failed')
 		return none
 	}
 
 	return tokens
-}
-
-fn debug(index int, line_number int, input string, message string) {
-	file := os.args[1]
-	start := if line_number >= 5 { line_number - 2 } else { 0 }
-	lines := input.split('\n')[start..][..5]
-	biggest := (line_number + 3).str().len
-	len := input[index..].split('\n')[0].len
-	println('$file:${len + 1}:${line_number + 1}: error: $message')
-	for i, line in lines {
-		pipe_pad := strings.repeat(` `, biggest - (start + i + 1).str().len + 1)
-		println('   ${start + i + 1}$pipe_pad| $line')
-		if start + i == line_number {
-			space := strings.repeat(` `, len)
-			tilde := strings.repeat(`~`, line.len - len)
-			padding := strings.repeat(` `, (start + i).str().len)
-			println('   $padding$pipe_pad| $space$tilde')
-		}
-	}
 }
 
 fn main() {
