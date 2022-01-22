@@ -20,181 +20,189 @@ On success it produces following for `v run . source/success.lua`:
 [./lua.v:132] tokens: [Token{
     value: 'function'
     location: Location{
-        x: 8
+        x: 0
         y: 0
-        i: 8
+        i: 0
     }
     kind: keyword
 }, Token{
     value: 'fib'
+    location: Location{
+        x: 9
+        y: 0
+        i: 9
+    }
+    kind: identifier
+}, Token{
+    value: '('
     location: Location{
         x: 12
         y: 0
         i: 12
     }
-    kind: identifier
+    kind: syntax
 }, Token{
-    value: '('
+    value: 'n'
     location: Location{
         x: 13
         y: 0
         i: 13
     }
-    kind: syntax
+    kind: identifier
 }, Token{
-    value: 'n'
+    value: ')'
     location: Location{
         x: 14
         y: 0
         i: 14
     }
-    kind: identifier
-}, Token{
-    value: ')'
-    location: Location{
-        x: 15
-        y: 0
-        i: 15
-    }
     kind: syntax
 }, Token{
     value: 'if'
     location: Location{
-        x: 20
+        x: 18
         y: 1
-        i: 21
+        i: 19
     }
     kind: keyword
 }, Token{
     value: 'n'
     location: Location{
-        x: 22
+        x: 21
         y: 1
-        i: 23
+        i: 22
     }
     kind: identifier
 }, Token{
     value: '<'
     location: Location{
-        x: 24
+        x: 23
         y: 1
-        i: 25
+        i: 24
     }
     kind: operator
 }, Token{
     value: '2'
     location: Location{
-        x: 26
+        x: 25
         y: 1
-        i: 27
+        i: 26
     }
     kind: number
 }, Token{
     value: 'then'
     location: Location{
-        x: 31
+        x: 27
         y: 1
-        i: 32
+        i: 28
     }
     kind: keyword
 }, Token{
     value: 'return'
     location: Location{
-        x: 43
+        x: 37
         y: 2
-        i: 45
+        i: 39
     }
     kind: keyword
 }, Token{
     value: 'n'
     location: Location{
-        x: 45
+        x: 44
         y: 2
-        i: 47
+        i: 46
     }
     kind: identifier
 }, Token{
     value: ';'
     location: Location{
-        x: 46
+        x: 45
         y: 2
-        i: 48
+        i: 47
     }
     kind: syntax
 }, Token{
     value: 'end'
     location: Location{
-        x: 52
+        x: 49
         y: 3
-        i: 55
+        i: 52
     }
     kind: keyword
 }, Token{
     value: 'local'
     location: Location{
-        x: 60
+        x: 55
         y: 5
-        i: 65
+        i: 60
     }
     kind: identifier
 }, Token{
     value: 'n1'
     location: Location{
-        x: 63
+        x: 61
         y: 5
-        i: 68
+        i: 66
     }
     kind: identifier
 }, Token{
     value: '='
     location: Location{
-        x: 65
+        x: 64
         y: 5
-        i: 70
+        i: 69
     }
     kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 69
+        x: 66
         y: 5
-        i: 74
+        i: 71
     }
     kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 70
+        x: 69
         y: 5
-        i: 75
+        i: 74
     }
     kind: syntax
 }, Token{
     value: 'n'
     location: Location{
-        x: 71
+        x: 70
         y: 5
-        i: 76
+        i: 75
     }
     kind: identifier
 }, Token{
     value: '-'
     location: Location{
-        x: 72
+        x: 71
         y: 5
-        i: 77
+        i: 76
     }
     kind: operator
 }, Token{
     value: '1'
     location: Location{
-        x: 73
+        x: 72
         y: 5
-        i: 78
+        i: 77
     }
     kind: number
 }, Token{
     value: ')'
+    location: Location{
+        x: 73
+        y: 5
+        i: 78
+    }
+    kind: syntax
+}, Token{
+    value: ';'
     location: Location{
         x: 74
         y: 5
@@ -202,79 +210,79 @@ On success it produces following for `v run . source/success.lua`:
     }
     kind: syntax
 }, Token{
-    value: ';'
-    location: Location{
-        x: 75
-        y: 5
-        i: 80
-    }
-    kind: syntax
-}, Token{
     value: 'local'
     location: Location{
-        x: 83
+        x: 78
         y: 6
-        i: 89
+        i: 84
     }
     kind: identifier
 }, Token{
     value: 'n2'
     location: Location{
-        x: 86
+        x: 84
         y: 6
-        i: 92
+        i: 90
     }
     kind: identifier
 }, Token{
     value: '='
     location: Location{
-        x: 88
+        x: 87
         y: 6
-        i: 94
+        i: 93
     }
     kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 92
+        x: 89
         y: 6
-        i: 98
+        i: 95
     }
     kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 93
+        x: 92
         y: 6
-        i: 99
+        i: 98
     }
     kind: syntax
 }, Token{
     value: 'n'
     location: Location{
-        x: 94
+        x: 93
         y: 6
-        i: 100
+        i: 99
     }
     kind: identifier
 }, Token{
     value: '-'
     location: Location{
-        x: 95
+        x: 94
         y: 6
-        i: 101
+        i: 100
     }
     kind: operator
 }, Token{
     value: '2'
     location: Location{
-        x: 96
+        x: 95
         y: 6
-        i: 102
+        i: 101
     }
     kind: number
 }, Token{
     value: ')'
+    location: Location{
+        x: 96
+        y: 6
+        i: 102
+    }
+    kind: syntax
+}, Token{
+    value: ';'
     location: Location{
         x: 97
         y: 6
@@ -282,101 +290,101 @@ On success it produces following for `v run . source/success.lua`:
     }
     kind: syntax
 }, Token{
-    value: ';'
-    location: Location{
-        x: 98
-        y: 6
-        i: 104
-    }
-    kind: syntax
-}, Token{
     value: 'return'
     location: Location{
-        x: 107
+        x: 101
         y: 7
-        i: 114
+        i: 108
     }
     kind: keyword
 }, Token{
     value: 'n1'
     location: Location{
-        x: 110
+        x: 108
         y: 7
-        i: 117
+        i: 115
     }
     kind: identifier
 }, Token{
     value: '+'
     location: Location{
-        x: 112
+        x: 111
         y: 7
-        i: 119
+        i: 118
     }
     kind: operator
 }, Token{
     value: 'n2'
     location: Location{
-        x: 115
+        x: 113
         y: 7
-        i: 122
+        i: 120
     }
     kind: identifier
 }, Token{
     value: ';'
     location: Location{
-        x: 116
+        x: 115
         y: 7
-        i: 123
+        i: 122
     }
     kind: syntax
 }, Token{
     value: 'end'
     location: Location{
-        x: 119
+        x: 116
         y: 8
-        i: 127
+        i: 124
     }
     kind: keyword
 }, Token{
     value: 'print'
     location: Location{
-        x: 124
+        x: 119
         y: 10
-        i: 134
+        i: 129
     }
     kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 125
+        x: 124
         y: 10
-        i: 135
+        i: 134
     }
     kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 128
+        x: 125
         y: 10
-        i: 138
+        i: 135
     }
     kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 129
+        x: 128
         y: 10
-        i: 139
+        i: 138
     }
     kind: syntax
 }, Token{
     value: '30'
     location: Location{
+        x: 129
+        y: 10
+        i: 139
+    }
+    kind: number
+}, Token{
+    value: ')'
+    location: Location{
         x: 131
         y: 10
         i: 141
     }
-    kind: number
+    kind: syntax
 }, Token{
     value: ')'
     location: Location{
@@ -386,19 +394,11 @@ On success it produces following for `v run . source/success.lua`:
     }
     kind: syntax
 }, Token{
-    value: ')'
+    value: ';'
     location: Location{
         x: 133
         y: 10
         i: 143
-    }
-    kind: syntax
-}, Token{
-    value: ';'
-    location: Location{
-        x: 134
-        y: 10
-        i: 144
     }
     kind: syntax
 }]
