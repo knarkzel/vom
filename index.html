@@ -63,6 +63,16 @@
 </div>
 <p><code>vom</code> is a rewrite of <a href="https://github.com/Geal/nom" title="nom">nom</a>, which is a parser combinator library.
 It is written in V, hence the name.</p>
+<h2>Install</h2>
+<pre><code class="language-bash">v install --git https://github.com/knarkzel/vom
+</code></pre>
+<p>Then import in your file like so:</p>
+<pre><code class="language-v">import vom
+rest, output := vom.digit1('123hello') ?
+assert output == '123'
+assert rest == 'hello'
+</code></pre>
+<p>There are examples in the <code>examples/</code> folder.</p>
 <h2>Why use vom?</h2>
 <ul>
 <li>The parsers are small and easy to write</li>
@@ -334,18 +344,18 @@ parser and discards it.</p>
 
 </section>
 						<section id="Fn" class="doc-node">
-							<div class="title"><h2>type Fn <a href="#Fn">#</a></h2></div><pre class="signature"><code><span class="token keyword">type</span> Fn <span class="token operator">=</span> <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
+							<div class="title"><h2>type Fn <a href="#Fn">#</a></h2></div><pre class="signature"><code><span class="token keyword">type</span> Fn <span class="token operator">=</span> <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">T</span><span class="token punctuation">)</span></code></pre>
 <p>Parser which returns a single value</p>
 
 </section>
 						<section id="FnMany" class="doc-node">
-							<div class="title"><h2>type FnMany <a href="#FnMany">#</a></h2></div><pre class="signature"><code><span class="token keyword">type</span> FnMany <span class="token operator">=</span> <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
+							<div class="title"><h2>type FnMany <a href="#FnMany">#</a></h2></div><pre class="signature"><code><span class="token keyword">type</span> FnMany <span class="token operator">=</span> <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">T</span><span class="token punctuation">)</span></code></pre>
 <p>Parser which returns many values</p>
 
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 6 Jan 2022 03:28:24
+							Powered by vdoc. Generated on: 22 Jan 2022 00:31:54
 						</div>
 					</div>
 					
