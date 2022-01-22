@@ -14,6 +14,23 @@
 `vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), which is a parser combinator library.
 It is written in V, hence the name.
 
+## Install
+
+```bash
+v install --git https://github.com/knarkzel/vom
+```
+
+Then import in your file like so:
+
+```v
+import vom
+rest, output := vom.digit1('123hello') ?
+assert output == '123'
+assert rest == 'hello'
+```
+
+There are examples in the `examples/` folder.
+
 ## Why use vom?
 
 - The parsers are small and easy to write
