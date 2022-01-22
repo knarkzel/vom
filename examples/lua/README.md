@@ -2,7 +2,7 @@
 
 Example of parsing some lua syntax using `vom`. Run example with `v run
 . input.lua`. Provides helpful error messages like below for errors, which you can see with
-`v run . fail.lua`.
+`v run . source/fail.lua`.
 
 ```
 source/fail.lua:9:2: error: parsing failed
@@ -14,7 +14,7 @@ source/fail.lua:9:2: error: parsing failed
    5 | 
 ```
 
-On success it produces following for `source/success.lua`:
+On success it produces following for `v run . source/success.lua`:
 
 ```
 [./lua.v:132] tokens: [Token{
