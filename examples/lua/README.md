@@ -17,389 +17,341 @@ source/fail.lua:9:2: error: parsing failed
 On success it produces following for `v run . source/success.lua`:
 
 ```
-[./lua.v:132] tokens: [Token{
+[./lua.v:92] tokens: [Token{
     value: 'function'
     location: Location{
         x: 0
         y: 0
-        i: 0
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'fib'
     location: Location{
         x: 9
         y: 0
-        i: 9
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '('
     location: Location{
         x: 12
         y: 0
-        i: 12
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'n'
     location: Location{
         x: 13
         y: 0
-        i: 13
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: ')'
     location: Location{
         x: 14
         y: 0
-        i: 14
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'if'
     location: Location{
-        x: 18
+        x: 3
         y: 1
-        i: 19
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'n'
     location: Location{
-        x: 21
+        x: 6
         y: 1
-        i: 22
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '<'
     location: Location{
-        x: 23
+        x: 8
         y: 1
-        i: 24
     }
-    kind: operator
+    token_kind: operator
 }, Token{
     value: '2'
     location: Location{
-        x: 25
+        x: 10
         y: 1
-        i: 26
     }
-    kind: number
+    token_kind: number
 }, Token{
     value: 'then'
     location: Location{
-        x: 27
+        x: 12
         y: 1
-        i: 28
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'return'
     location: Location{
-        x: 37
+        x: 6
         y: 2
-        i: 39
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'n'
     location: Location{
-        x: 44
+        x: 13
         y: 2
-        i: 46
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: ';'
     location: Location{
-        x: 45
+        x: 14
         y: 2
-        i: 47
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'end'
     location: Location{
-        x: 49
+        x: 3
         y: 3
-        i: 52
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'local'
     location: Location{
-        x: 55
+        x: 3
         y: 5
-        i: 60
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: 'n1'
     location: Location{
-        x: 61
+        x: 9
         y: 5
-        i: 66
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '='
     location: Location{
-        x: 64
+        x: 12
         y: 5
-        i: 69
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 66
+        x: 14
         y: 5
-        i: 71
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 69
+        x: 17
         y: 5
-        i: 74
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'n'
     location: Location{
-        x: 70
+        x: 18
         y: 5
-        i: 75
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '-'
     location: Location{
-        x: 71
+        x: 19
         y: 5
-        i: 76
     }
-    kind: operator
+    token_kind: operator
 }, Token{
     value: '1'
     location: Location{
-        x: 72
+        x: 20
         y: 5
-        i: 77
     }
-    kind: number
+    token_kind: number
 }, Token{
     value: ')'
     location: Location{
-        x: 73
+        x: 21
         y: 5
-        i: 78
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: ';'
     location: Location{
-        x: 74
+        x: 22
         y: 5
-        i: 79
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'local'
     location: Location{
-        x: 78
+        x: 3
         y: 6
-        i: 84
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: 'n2'
     location: Location{
-        x: 84
+        x: 9
         y: 6
-        i: 90
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '='
     location: Location{
-        x: 87
+        x: 12
         y: 6
-        i: 93
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 89
+        x: 14
         y: 6
-        i: 95
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 92
+        x: 17
         y: 6
-        i: 98
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'n'
     location: Location{
-        x: 93
+        x: 18
         y: 6
-        i: 99
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '-'
     location: Location{
-        x: 94
+        x: 19
         y: 6
-        i: 100
     }
-    kind: operator
+    token_kind: operator
 }, Token{
     value: '2'
     location: Location{
-        x: 95
+        x: 20
         y: 6
-        i: 101
     }
-    kind: number
+    token_kind: number
 }, Token{
     value: ')'
     location: Location{
-        x: 96
+        x: 21
         y: 6
-        i: 102
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: ';'
     location: Location{
-        x: 97
+        x: 22
         y: 6
-        i: 103
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'return'
     location: Location{
-        x: 101
+        x: 3
         y: 7
-        i: 108
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'n1'
     location: Location{
-        x: 108
+        x: 10
         y: 7
-        i: 115
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '+'
     location: Location{
-        x: 111
+        x: 13
         y: 7
-        i: 118
     }
-    kind: operator
+    token_kind: operator
 }, Token{
     value: 'n2'
     location: Location{
-        x: 113
+        x: 15
         y: 7
-        i: 120
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: ';'
     location: Location{
-        x: 115
+        x: 17
         y: 7
-        i: 122
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'end'
     location: Location{
-        x: 116
+        x: 0
         y: 8
-        i: 124
     }
-    kind: keyword
+    token_kind: keyword
 }, Token{
     value: 'print'
     location: Location{
-        x: 119
+        x: 0
         y: 10
-        i: 129
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 124
+        x: 5
         y: 10
-        i: 134
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: 'fib'
     location: Location{
-        x: 125
+        x: 6
         y: 10
-        i: 135
     }
-    kind: identifier
+    token_kind: identifier
 }, Token{
     value: '('
     location: Location{
-        x: 128
+        x: 9
         y: 10
-        i: 138
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: '30'
     location: Location{
-        x: 129
+        x: 10
         y: 10
-        i: 139
     }
-    kind: number
+    token_kind: number
 }, Token{
     value: ')'
     location: Location{
-        x: 131
+        x: 12
         y: 10
-        i: 141
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: ')'
     location: Location{
-        x: 132
+        x: 13
         y: 10
-        i: 142
     }
-    kind: syntax
+    token_kind: syntax
 }, Token{
     value: ';'
     location: Location{
-        x: 133
+        x: 14
         y: 10
-        i: 143
     }
-    kind: syntax
+    token_kind: syntax
 }]
 ```
