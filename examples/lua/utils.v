@@ -3,6 +3,7 @@ module main
 import os
 import strings
 
+// Print nice errors for user
 fn debug(location Location, input string, message string) {
 	file := os.args[1]
 	start := if location.y >= 5 { location.y - 2 } else { 0 }
