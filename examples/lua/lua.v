@@ -29,48 +29,6 @@ struct Token {
 	kind     TokenKind
 }
 
-fn lex(input string) ?[]Token {
-	mut temp := input
-	mut tokens := []Token{}
-	mut location := Location{0, 0, 0}
-	lexers := [keyword, identifier, number, syntax, operator]
-
-	outer: for temp.len > 0 {
-		// Handle whitespace
-		for i, b in temp.bytes() {
-			if b == ` ` || b == `\t` {
-				location.x++
-				location.i++
-			} else if b == `\r` || b == `\n` {
-				location.y++
-				location.i++
-			} else {
-				temp = temp[i..]
-				if i == 0 {
-					break
-				} else {
-					continue outer
-				}
-			}
-		}
-
-		// Lex input
-		for lexer in lexers {
-			rest, token := lexer(temp, location) or { continue }
-			temp = rest
-			location = token.location.increment(token.value.len)
-			tokens << token
-			continue outer
-		}
-
-		// No lexer worked, print error and exit
-		debug(location, input, 'parsing failed')
-		return none
-	}
-
-	return tokens
-}
-
 fn keyword(input string, l Location) ?(string, Token) {
 	parser := alt(tag('function'), tag('end'), tag('if'), tag('then'), tag('lal'), tag('return'))
 	rest, output := parser(input) ?
@@ -120,6 +78,48 @@ fn debug(l Location, input string, message string) {
 			println('   $padding$pipe_pad| $space$tilde')
 		}
 	}
+}
+
+fn lex(input string) ?[]Token {
+	mut temp := input
+	mut tokens := []Token{}
+	mut location := Location{0, 0, 0}
+	lexers := [keyword, identifier, number, syntax, operator]
+
+	outer: for temp.len > 0 {
+		// Handle whitespace
+		for i, b in temp.bytes() {
+			if b == ` ` || b == `\t` {
+				location.x++
+				location.i++
+			} else if b == `\r` || b == `\n` {
+				location.y++
+				location.i++
+			} else {
+				temp = temp[i..]
+				if i == 0 {
+					break
+				} else {
+					continue outer
+				}
+			}
+		}
+
+		// Lex input
+		for lexer in lexers {
+			rest, token := lexer(temp, location) or { continue }
+			temp = rest
+			location = token.location.increment(token.value.len)
+			tokens << token
+			continue outer
+		}
+
+		// No lexer worked, print error and exit
+		debug(location, input, 'parsing failed')
+		return none
+	}
+
+	return tokens
 }
 
 fn main() {
