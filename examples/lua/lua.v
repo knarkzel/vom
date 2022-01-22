@@ -61,17 +61,17 @@ fn operator(input string, location Location) ?(string, Token) {
 	return rest, Token{output, location, .operator}
 }
 
-fn debug(index int, line_index int, input string, message string) {
+fn debug(index int, line_number int, input string, message string) {
 	file := os.args[1]
-	start := if line_index >= 5 { line_index - 2 } else { 0 }
+	start := if line_number >= 5 { line_number - 2 } else { 0 }
 	lines := input.split('\n')[start..][..5]
-	biggest := (line_index + 3).str().len
+	biggest := (line_number + 3).str().len
 	len := input[index..].split('\n')[0].len
-	println('$file:${len + 1}:${line_index + 1}: error: $message')
+	println('$file:${len + 1}:${line_number + 1}: error: $message')
 	for i, line in lines {
 		pipe_pad := strings.repeat(` `, biggest - (start + i + 1).str().len + 1)
 		println('   ${start + i + 1}$pipe_pad| $line')
-		if start + i == line_index {
+		if start + i == line_number {
 			space := strings.repeat(` `, len)
 			tilde := strings.repeat(`~`, line.len - len)
 			padding := strings.repeat(` `, (start + i).str().len)
