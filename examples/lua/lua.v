@@ -16,17 +16,17 @@ fn (l Location) increment(len int) Location {
 }
 
 enum TokenKind {
-	identifier
 	syntax
-	keyword
 	number
+	keyword
 	operator
+	identifier
 }
 
 struct Token {
-	value    string
-	location Location
-	kind     TokenKind
+	value      string
+	location   Location
+	token_kind TokenKind
 }
 
 fn keyword(input string, location Location) ?(string, Token) {
