@@ -29,49 +29,49 @@ struct Token {
 	kind     TokenKind
 }
 
-fn keyword(input string, l Location) ?(string, Token) {
+fn keyword(input string, location Location) ?(string, Token) {
 	parser := alt(tag('function'), tag('end'), tag('if'), tag('then'), tag('lal'), tag('return'))
 	rest, output := parser(input) ?
-	return rest, Token{output, l, .keyword}
+	return rest, Token{output, location, .keyword}
 }
 
-fn identifier(input string, l Location) ?(string, Token) {
+fn identifier(input string, location Location) ?(string, Token) {
 	rest, output := alphanumeric1(input) ?
 	if vom.is_digit(output[0]) {
 		return error('$output starts with digit')
 	} else {
-		return rest, Token{output, l, .identifier}
+		return rest, Token{output, location, .identifier}
 	}
 }
 
-fn number(input string, l Location) ?(string, Token) {
+fn number(input string, location Location) ?(string, Token) {
 	rest, output := digit1(input) ?
-	return rest, Token{output, l, .number}
+	return rest, Token{output, location, .number}
 }
 
-fn syntax(input string, l Location) ?(string, Token) {
+fn syntax(input string, location Location) ?(string, Token) {
 	parser := alt(tag(';'), tag('='), tag('('), tag(')'), tag(','))
 	rest, output := parser(input) ?
-	return rest, Token{output, l, .syntax}
+	return rest, Token{output, location, .syntax}
 }
 
-fn operator(input string, l Location) ?(string, Token) {
+fn operator(input string, location Location) ?(string, Token) {
 	parser := alt(tag('+'), tag('-'), tag('<'))
 	rest, output := parser(input) ?
-	return rest, Token{output, l, .operator}
+	return rest, Token{output, location, .operator}
 }
 
-fn debug(l Location, input string, message string) {
+fn debug(index int, line_index int, input string, message string) {
 	file := os.args[1]
-	start := if l.y >= 5 { l.y - 2 } else { 0 }
+	start := if line_index >= 5 { line_index - 2 } else { 0 }
 	lines := input.split('\n')[start..][..5]
-	biggest := (l.y + 3).str().len
-	len := input[l.i..].split('\n')[0].len
-	println('$file:${len + 1}:${l.y + 1}: error: $message')
+	biggest := (line_index + 3).str().len
+	len := input[index..].split('\n')[0].len
+	println('$file:${len + 1}:${line_index + 1}: error: $message')
 	for i, line in lines {
 		pipe_pad := strings.repeat(` `, biggest - (start + i + 1).str().len + 1)
 		println('   ${start + i + 1}$pipe_pad| $line')
-		if start + i == l.y {
+		if start + i == line_index {
 			space := strings.repeat(` `, len)
 			tilde := strings.repeat(`~`, line.len - len)
 			padding := strings.repeat(` `, (start + i).str().len)
@@ -115,7 +115,7 @@ fn lex(input string) ?[]Token {
 		}
 
 		// No lexer worked, print error and exit
-		debug(location, input, 'parsing failed')
+		debug(location.i, location.y, input, 'parsing failed')
 		return none
 	}
 
