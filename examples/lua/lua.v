@@ -2,7 +2,7 @@ module main
 
 import os
 import strings
-import vom { alphanumeric1, alt, digit1, tag }
+import vom { alphanumeric1, alt, digit1, is_digit, tag }
 
 struct Location {
 mut:
@@ -37,7 +37,7 @@ fn keyword(input string, location Location) ?(string, Token) {
 
 fn identifier(input string, location Location) ?(string, Token) {
 	rest, output := alphanumeric1(input) ?
-	if vom.is_digit(output[0]) {
+	if is_digit(output[0]) {
 		return error('$output starts with digit')
 	} else {
 		return rest, Token{output, location, .identifier}
