@@ -144,6 +144,11 @@ assert rest == 'hello'
 <li>The parser combination code looks close to the grammar you would have written</li>
 <li>You can build partial parsers, specific to the data you need at the moment, and ignore the rest</li>
 </ul>
+<h2>Resources</h2>
+<ul>
+<li><a href="https://docs.rs/nom/7.1.0/nom/recipes/index.html">nom::recipes</a></li>
+<li><a href="https://github.com/Geal/nom/tree/main/examples">nom/examples</a></li>
+</ul>
 
 </section>
 
@@ -175,6 +180,11 @@ assert rest == 'hello'
 						<section id="alt" class="doc-node">
 							<div class="title"><h2>fn alt <a href="#alt">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">alt</span><span class="token punctuation">(</span>parsers ...Fn<span class="token punctuation">)</span> Fn</code></pre>
 <p>Tests a list of parsers one by one until one succeeds.</p>
+
+</section>
+						<section id="character" class="doc-node">
+							<div class="title"><h2>fn character <a href="#character">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">character</span><span class="token punctuation">(</span>input <span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
+<p>Recognizes one letter.</p>
 
 </section>
 						<section id="cond" class="doc-node">
@@ -276,11 +286,6 @@ discards it.</p>
 						<section id="is_space" class="doc-node">
 							<div class="title"><h2>fn is_space <a href="#is_space">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">is_space</span><span class="token punctuation">(</span>b <span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
 <p>Tests if byte is ASCII space or tab.</p>
-
-</section>
-						<section id="letter" class="doc-node">
-							<div class="title"><h2>fn letter <a href="#letter">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">letter</span><span class="token punctuation">(</span>input <span class="token builtin">string</span><span class="token punctuation">)</span> ?<span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">)</span></code></pre>
-<p>Recognizes one letter.</p>
 
 </section>
 						<section id="line_ending" class="doc-node">
@@ -463,7 +468,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 23 Jan 2022 03:32:19
+							Powered by vdoc. Generated on: 23 Jan 2022 18:28:45
 						</div>
 					</div>
 					
