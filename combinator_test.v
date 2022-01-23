@@ -5,11 +5,7 @@ fn test_all_consuming() ? {
 	rest, output := parser('abcd') ?
 	assert output == 'abcd'
 	assert rest == ''
-	if _ := parser('abcd1') {
-		assert false
-	} else {
-		assert true
-	}
+	parser('abcd1') or { assert true }
 }
 
 fn test_cond() ? {
@@ -49,4 +45,18 @@ fn test_fail() ? {
 	} else {
 		assert true
 	}
+}
+
+// fn test_flat_map() ? {
+//}
+
+// fn test_map() ? {
+//}
+
+fn test_not() ? {
+	parser := not(alpha1)
+	rest, output := parser('123') ?
+	assert output == ''
+	assert rest == '123'
+	parser('1234') or { assert true }
 }

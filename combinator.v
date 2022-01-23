@@ -60,3 +60,34 @@ pub fn eof(input string) ?(string, string) {
 pub fn fail(input string) ?(string, string) {
 	return error('`fail` failed')
 }
+
+// Creates a new parser from the output of the first parser, then apply that parser over the rest of the input.
+// pub fn flat_map<T>(f Fn, g fn (T) Fn) Fn {
+//	parsers := [f, g]
+//	return fn [parsers] (input string) ?(string, string) {
+//		f, g := parsers[0], parsers[1]
+//		rest, output := f(input) ?
+//		parser := g<T>(output)
+//		return parser(rest)
+//	}
+//}
+
+// Maps a function on the result of a parser.
+// pub fn map<T>(f Fn, g fn (string) T) Fn {
+//	parsers := [f, g]
+//	return fn [parsers] (input string) ?(string, T) {
+//		f, g := parsers[0], parsers[1]
+//		rest, output := f(input) ?
+//		return rest, g(output) ?
+//	}
+//}
+
+// Succeeds if the child parser returns an error.
+pub fn not(f Fn) Fn {
+	parsers := [f]
+	return fn [parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		f(input) or { return input, '' }
+		return error('`not` failed because function succeded')
+	}
+}
