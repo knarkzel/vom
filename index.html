@@ -90,8 +90,24 @@ entry manually, I'm too lazy to do that.</p>
 <ul>
 <li><a href="https://github.com/vlang/v/issues/13032" title="Closures fail when capturing parameters that are functions #13032">Closures fail when capturing parameters that are functions #13032</a></li>
 </ul>
-<p>This is not a necessary issue either, but it would aid remove lots of
+<p>This is not a necessary issue either, but it would remove lots of
 boilerplate in the current code, for instance from <a href="https://github.com/knarkzel/vom/blob/master/sequence.v" title="sequence.v">sequence.v</a>.</p>
+<p>Adding this would turn following:</p>
+<pre><code class="language-v">pub fn minimal(cond fn (int) bool) fn (int) bool {
+    functions := [cond]
+    return fn [functions] (input int) bool {
+        cond := functions[0]
+        return cond(input)
+    }
+}
+</code></pre>
+<p>Into this:</p>
+<pre><code class="language-v">pub fn minimal(cond fn (int) bool) fn (int) bool {
+    return fn [cond] (input int) bool {
+        return cond(input)
+    }
+}
+</code></pre>
 <h3>Call closure returned from function immediately</h3>
 <ul>
 <li><a href="https://github.com/vlang/v/issues/13051" title="Closures created from functions can't be called immediately #13051">Closures created from functions can't be called immediately #13051</a></li>
@@ -402,7 +418,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 23 Jan 2022 00:13:50
+							Powered by vdoc. Generated on: 23 Jan 2022 00:16:07
 						</div>
 					</div>
 					
