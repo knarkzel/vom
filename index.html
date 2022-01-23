@@ -329,6 +329,11 @@ discards it.</p>
 from the second parser.</p>
 
 </section>
+						<section id="recognize" class="doc-node">
+							<div class="title"><h2>fn recognize <a href="#recognize">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">recognize</span><span class="token punctuation">(</span>f Parser<span class="token punctuation">)</span> Fn</code></pre>
+<p>If the child parser was successful, return the consumed input as produced value.</p>
+
+</section>
 						<section id="satisfy" class="doc-node">
 							<div class="title"><h2>fn satisfy <a href="#satisfy">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">satisfy</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Recognizes one character and checks that it satisfies a predicate</p>
@@ -426,9 +431,14 @@ parser and discards it.</p>
 <p>Parser which returns many values</p>
 
 </section>
+						<section id="Parser" class="doc-node">
+							<div class="title"><h2>type Parser <a href="#Parser">#</a></h2></div><pre class="signature"><code><span class="token keyword">type</span> Parser <span class="token operator">=</span> Fn <span class="token operator">|</span> FnMany</code></pre>
+<p>Core parser type</p>
+
+</section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 23 Jan 2022 01:06:31
+							Powered by vdoc. Generated on: 23 Jan 2022 01:25:10
 						</div>
 					</div>
 					
