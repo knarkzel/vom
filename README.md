@@ -121,3 +121,8 @@ There are examples in the `examples/` folder.
 - The parsers components are easy to test separately
 - The parser combination code looks close to the grammar you would have written
 - You can build partial parsers, specific to the data you need at the moment, and ignore the rest
+
+## Resources
+
+- [nom::recipes](https://docs.rs/nom/7.1.0/nom/recipes/index.html)
+- [nom/examples](https://github.com/Geal/nom/tree/main/examples)

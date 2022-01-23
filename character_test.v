@@ -24,8 +24,8 @@ fn test_alphanumeric1() ? {
 	assert rest == '%1'
 }
 
-fn test_letter() ? {
-	rest, output := letter('abc') ?
+fn test_character() ? {
+	rest, output := character('abc') ?
 	assert output == 'a'
 	assert rest == 'bc'
 }

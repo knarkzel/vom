@@ -29,24 +29,6 @@ pub fn cond(b bool, f Fn) Fn {
 	}
 }
 
-// If the child parser was successful, return the consumed input as produced value.
-pub fn recognize(f Parser) Fn {
-	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
-		f := parsers[0]
-		match f {
-			Fn {
-				rest, output := f(input) ?
-				return rest, input[..input.len - rest.len]
-			}
-			FnMany {
-				rest, output := f(input) ?
-				return rest, input[..input.len - rest.len]
-			}
-		}
-	}
-}
-
 // Returns its input if it is at the end of input data
 pub fn eof(input string) ?(string, string) {
 	if input.len == 0 {
@@ -60,27 +42,6 @@ pub fn eof(input string) ?(string, string) {
 pub fn fail(input string) ?(string, string) {
 	return error('`fail` failed')
 }
-
-// Creates a new parser from the output of the first parser, then apply that parser over the rest of the input.
-// pub fn flat_map<T>(f Fn, g fn (T) Fn) Fn {
-//	parsers := [f, g]
-//	return fn [parsers] (input string) ?(string, string) {
-//		f, g := parsers[0], parsers[1]
-//		rest, output := f(input) ?
-//		parser := g<T>(output)
-//		return parser(rest)
-//	}
-//}
-
-// Maps a function on the result of a parser.
-// pub fn map<T>(f Fn, g fn (string) T) Fn {
-//	parsers := [f, g]
-//	return fn [parsers] (input string) ?(string, T) {
-//		f, g := parsers[0], parsers[1]
-//		rest, output := f(input) ?
-//		return rest, g(output) ?
-//	}
-//}
 
 // Succeeds if the child parser returns an error.
 pub fn not(f Fn) Fn {
@@ -109,5 +70,23 @@ pub fn peek(f Fn) Fn {
 		f := parsers[0]
 		_, output := f(input) ?
 		return input, output
+	}
+}
+
+// If the child parser was successful, return the consumed input as produced value.
+pub fn recognize(f Parser) Fn {
+	parsers := [f]
+	return fn [parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		match f {
+			Fn {
+				rest, output := f(input) ?
+				return rest, input[..input.len - rest.len]
+			}
+			FnMany {
+				rest, output := f(input) ?
+				return rest, input[..input.len - rest.len]
+			}
+		}
 	}
 }

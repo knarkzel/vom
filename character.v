@@ -64,7 +64,7 @@ pub fn alphanumeric1(input string) ?(string, string) {
 }
 
 // Recognizes one letter.
-pub fn letter(input string) ?(string, string) {
+pub fn character(input string) ?(string, string) {
 	parser := take_while_m_n(1, 1, is_alphabetic)
 	return parser(input)
 }
