@@ -20,10 +20,12 @@ There are some features I both need and want working in V before I will complete
 
 ### Generic return type for closures returned from functions
 
+- [Generic return type for closure returned from function doesn't work #13253](https://github.com/vlang/v/issues/13253 "Generic return type for closure returned from function doesn't work #13253")
+
 This is the only feature I absolutely need in order to finish this
-library. Without it, we're stuck with returning `?(string, string)` from each
-parser, and thus can't construct an Ast with the library alone. That's currently
-something you need to do manually.
+library. Without it, we're stuck with returning `?(string, string)` instead of
+`?(string, T)` from each parser, and thus can't construct an Ast with the
+library alone. That's currently something you need to do manually.
 
 ### Generic type aliases
 
