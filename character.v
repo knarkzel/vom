@@ -176,14 +176,14 @@ pub fn one_of(pattern string) Fn {
 }
 
 // Recognizes one character and checks that it satisfies a predicate
-pub fn satisfy(cond fn (byte) bool) Fn {
-	parsers := [cond]
+pub fn satisfy(condition fn (byte) bool) Fn {
+	parsers := [condition]
 	return fn [parsers] (input string) ?(string, string) {
-		cond := parsers[0]
+		condition := parsers[0]
 		if input.len == 0 {
 			return error('`satisfy` failed because input is empty')
 		}
-		if cond(input[0]) {
+		if condition(input[0]) {
 			return input[1..], input[..1]
 		} else {
 			return error('`satisfy` failed on input `$input`')

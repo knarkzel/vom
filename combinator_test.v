@@ -12,9 +12,9 @@ fn test_all_consuming() ? {
 	}
 }
 
-fn test_condition() ? {
+fn test_cond() ? {
 	parser := fn (b bool, i string) ?(string, string) {
-		temp := condition(b, alpha1)
+		temp := cond(b, alpha1)
 		return temp(i)
 	}
 	rest, output := parser(true, 'abcd;') ?
