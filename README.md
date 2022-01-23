@@ -48,8 +48,30 @@ entry manually, I'm too lazy to do that.
 
 - [Closures fail when capturing parameters that are functions #13032](https://github.com/vlang/v/issues/13032 "Closures fail when capturing parameters that are functions #13032")
 
-This is not a necessary issue either, but it would aid remove lots of
+This is not a necessary issue either, but it would remove lots of
 boilerplate in the current code, for instance from [sequence.v](https://github.com/knarkzel/vom/blob/master/sequence.v "sequence.v").
+
+Adding this would turn following:
+
+```v
+pub fn minimal(cond fn (int) bool) fn (int) bool {
+	functions := [cond]
+	return fn [functions] (input int) bool {
+		cond := functions[0]
+		return cond(input)
+	}
+}
+```
+
+Into this:
+
+```v
+pub fn minimal(cond fn (int) bool) fn (int) bool {
+	return fn [cond] (input int) bool {
+		return cond(input)
+	}
+}
+```
 
 ### Call closure returned from function immediately 
 
