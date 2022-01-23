@@ -177,8 +177,8 @@ assert rest == 'hello'
 <p>Tests a list of parsers one by one until one succeeds.</p>
 
 </section>
-						<section id="condition" class="doc-node">
-							<div class="title"><h2>fn condition <a href="#condition">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">condition</span><span class="token punctuation">(</span>b <span class="token builtin">bool</span><span class="token punctuation">,</span> f Fn<span class="token punctuation">)</span> Fn</code></pre>
+						<section id="cond" class="doc-node">
+							<div class="title"><h2>fn cond <a href="#cond">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">cond</span><span class="token punctuation">(</span>b <span class="token builtin">bool</span><span class="token punctuation">,</span> f Fn<span class="token punctuation">)</span> Fn</code></pre>
 <p>Calls the parser if the condition is met.</p>
 
 </section>
@@ -345,7 +345,7 @@ from the second parser.</p>
 
 </section>
 						<section id="satisfy" class="doc-node">
-							<div class="title"><h2>fn satisfy <a href="#satisfy">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">satisfy</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn satisfy <a href="#satisfy">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">satisfy</span><span class="token punctuation">(</span>condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Recognizes one character and checks that it satisfies a predicate</p>
 
 </section>
@@ -386,12 +386,12 @@ and discards it, then gets another object from the second parser.</p>
 
 </section>
 						<section id="take_till" class="doc-node">
-							<div class="title"><h2>fn take_till <a href="#take_till">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_till</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn take_till <a href="#take_till">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_till</span><span class="token punctuation">(</span>condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Returns the longest input slice (if any) till a predicate is met.</p>
 
 </section>
 						<section id="take_till1" class="doc-node">
-							<div class="title"><h2>fn take_till1 <a href="#take_till1">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_till1</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn take_till1 <a href="#take_till1">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_till1</span><span class="token punctuation">(</span>condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Returns the longest (at least 1) input slice till a predicate is met.</p>
 
 </section>
@@ -406,17 +406,17 @@ and discards it, then gets another object from the second parser.</p>
 
 </section>
 						<section id="take_while" class="doc-node">
-							<div class="title"><h2>fn take_while <a href="#take_while">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn take_while <a href="#take_while">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while</span><span class="token punctuation">(</span>condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Returns the longest input slice (if any) that matches the predicate.</p>
 
 </section>
 						<section id="take_while1" class="doc-node">
-							<div class="title"><h2>fn take_while1 <a href="#take_while1">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while1</span><span class="token punctuation">(</span>cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn take_while1 <a href="#take_while1">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while1</span><span class="token punctuation">(</span>condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Returns the longest (at least 1) input slice that matches the predicate.</p>
 
 </section>
 						<section id="take_while_m_n" class="doc-node">
-							<div class="title"><h2>fn take_while_m_n <a href="#take_while_m_n">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while_m_n</span><span class="token punctuation">(</span>m <span class="token builtin">int</span><span class="token punctuation">,</span> n <span class="token builtin">int</span><span class="token punctuation">,</span> cond <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
+							<div class="title"><h2>fn take_while_m_n <a href="#take_while_m_n">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">take_while_m_n</span><span class="token punctuation">(</span>m <span class="token builtin">int</span><span class="token punctuation">,</span> n <span class="token builtin">int</span><span class="token punctuation">,</span> condition <span class="token keyword">fn</span> <span class="token punctuation">(</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> Fn</code></pre>
 <p>Returns the longest (m &lt;= len &lt;= n) input slice that matches the predicate.</p>
 
 </section>
@@ -448,7 +448,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 23 Jan 2022 01:39:42
+							Powered by vdoc. Generated on: 23 Jan 2022 01:40:55
 						</div>
 					</div>
 					
