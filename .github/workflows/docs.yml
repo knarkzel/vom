@@ -1,4 +1,4 @@
-name: docs
+name: Document vom
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  docs:
+  Document vom:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
