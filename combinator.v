@@ -46,3 +46,12 @@ pub fn recognize(f Parser) Fn {
 		}
 	}
 }
+
+// Returns its input if it is at the end of input data
+pub fn eof(input string) ?(string, string) {
+	if input.len == 0 {
+		return input, input
+	} else {
+		return error('`eof` failed because $input is not empty')
+	}
+}

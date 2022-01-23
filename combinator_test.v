@@ -31,3 +31,14 @@ fn test_recognize() ? {
 	assert output == 'abcd,efgh'
 	assert rest == ''
 }
+
+fn test_eof() ? {
+	rest, output := eof('') ?
+	assert output == ''
+	assert rest == ''
+	if _ := eof('abc') {
+		assert false
+	} else {
+		assert true
+	}
+}
