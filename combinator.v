@@ -80,11 +80,11 @@ pub fn recognize(f Parser) Fn {
 		f := parsers[0]
 		match f {
 			Fn {
-				rest, output := f(input) ?
+				rest, _ := f(input) ?
 				return rest, input[..input.len - rest.len]
 			}
 			FnMany {
-				rest, output := f(input) ?
+				rest, _ := f(input) ?
 				return rest, input[..input.len - rest.len]
 			}
 		}
