@@ -14,6 +14,45 @@
 `vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), which is a parser combinator library.
 It is written in V, hence the name.
 
+## Example
+
+[Hexadecimal color](https://developer.mozilla.org/en-US/docs/Web/CSS/color) parser:
+
+```v
+import strconv
+import vom { is_hex_digit, tag, take_while_m_n, tuple }
+
+struct Color {
+	red   byte
+	green byte
+	blue  byte
+}
+
+fn from_hex(input string) ?byte {
+	return byte(strconv.parse_uint(input, 16, 8) ?)
+}
+
+fn hex_primary(input string) ?(string, string) {
+	parser := take_while_m_n(2, 2, is_hex_digit)
+	return parser(input)
+}
+
+fn hex_color(input string) ?(string, Color) {
+	discard := tag('#')
+	hex_part, _ := discard(input) ?
+	parser := tuple(hex_primary, hex_primary, hex_primary)
+	rest, output := parser(hex_part) ?
+	red, green, blue := from_hex(output[0]) ?, from_hex(output[1]) ?, from_hex(output[2]) ?
+	return rest, Color{red, green, blue}
+}
+
+fn main() {
+	_, color := hex_color('#2F14DF') ?
+	assert color == Color{47, 20, 223}
+}
+
+```
+
 ## When will it reach 1.0?
 
 There are some features I both need and want working in V before I will complete this library:
