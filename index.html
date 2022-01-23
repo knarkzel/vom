@@ -177,6 +177,11 @@ assert rest == 'hello'
 <p>Tests a list of parsers one by one until one succeeds.</p>
 
 </section>
+						<section id="condition" class="doc-node">
+							<div class="title"><h2>fn condition <a href="#condition">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">condition</span><span class="token punctuation">(</span>b <span class="token builtin">bool</span><span class="token punctuation">,</span> f Fn<span class="token punctuation">)</span> Fn</code></pre>
+<p>Calls the parser if the condition is met.</p>
+
+</section>
 						<section id="count" class="doc-node">
 							<div class="title"><h2>fn count <a href="#count">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">count</span><span class="token punctuation">(</span>f Fn<span class="token punctuation">,</span> count <span class="token builtin">int</span><span class="token punctuation">)</span> FnMany</code></pre>
 <p>Runs the embedded parser a specified number of times.</p>
@@ -423,7 +428,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 23 Jan 2022 00:59:39
+							Powered by vdoc. Generated on: 23 Jan 2022 01:06:31
 						</div>
 					</div>
 					
