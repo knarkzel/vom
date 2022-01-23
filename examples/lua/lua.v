@@ -1,7 +1,7 @@
 module main
 
 import os
-import vom { alphanumeric1, alt, digit1, is_digit, tag }
+import vom { alphanumeric1, alt, digit1, is_digit, one_of, tag }
 
 struct Location {
 mut:
@@ -44,13 +44,13 @@ fn number(input string, location Location) ?(string, Token) {
 }
 
 fn syntax(input string, location Location) ?(string, Token) {
-	parser := alt(tag(';'), tag('='), tag('('), tag(')'), tag(','))
+	parser := one_of(';=(),')
 	rest, output := parser(input) ?
 	return rest, Token{output, location, .syntax}
 }
 
 fn operator(input string, location Location) ?(string, Token) {
-	parser := alt(tag('+'), tag('-'), tag('<'))
+	parser := one_of('+-<')
 	rest, output := parser(input) ?
 	return rest, Token{output, location, .operator}
 }

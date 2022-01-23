@@ -14,6 +14,58 @@
 `vom` is a rewrite of [nom](https://github.com/Geal/nom "nom"), which is a parser combinator library.
 It is written in V, hence the name.
 
+## When will it reach 1.0?
+
+There are some features I both need and want working in V before I will complete this library:
+
+### Generic type aliases
+
+- [Aliases with generic parameters #12702](https://github.com/vlang/v/discussions/12702 "Aliases with generic parameters #12702 ")
+
+Currently this isn't implemented yet. Although it's not required in order to
+implement the features that are missing, it will make the codebase look horrible
+without because almost all of the functions depend on following:
+
+```v
+type Fn = fn (string) ?(string, string)
+type FnMany = fn (string) ?(string, []string)
+```
+
+And I need the last argument to be generic, because parsers could return other
+types such as int, token, []token etc. Although I could search and replace each
+entry manually, I'm too lazy to do that.
+
+### Functions that return closure that captures functions from function parameter
+
+- [Closures fail when capturing parameters that are functions #13032](https://github.com/vlang/v/issues/13032 "Closures fail when capturing parameters that are functions #13032")
+
+This is not a necessary issue either, but it would aid remove lots of
+boilerplate in the current code, for instance from [sequence.v](https://github.com/knarkzel/vom/blob/master/sequence.v "sequence.v").
+
+### Call closure returned from function immediately 
+
+- [Closures created from functions can't be called immediately #13051](https://github.com/vlang/v/issues/13051 "Closures created from functions can't be called immediately #13051")
+
+This is again not a mandatory feature for this library to work, but would be a
+nice addition. Instead of following code:
+
+```v
+fn operator(input string, location Location) ?(string, Token) {
+	parser := alt(tag('+'), tag('-'), tag('<'))
+	rest, output := parser(input) ?
+	return rest, Token{output, location, .operator}
+}
+```
+
+We could write this instead, which is a very common pattern in `nom`:
+
+```v
+fn operator(input string, location Location) ?(string, Token) {
+	rest, output := alt(tag('+'), tag('-'), tag('<'))(input) ?
+	return rest, Token{output, location, .operator}
+}
+```
+
 ## Install
 
 ```bash

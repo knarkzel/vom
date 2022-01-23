@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+if [[ ! -z $1 ]]; then
+    OUTPUT=$(v -profile profile.txt run . $1 &>/dev/null && sort -n -k${2:-2} profile.txt | tail -n ${3:-10} | tac)
+    awk 'BEGIN { format = "%-6s | %-7s | %-9s | %s\n"
+                 printf format, "Called", "Time", "Average", "Name" }
+               { printf format, $1, $2, $3, $4 }' <<< $OUTPUT
+    rm profile.txt
+else
+    printf "profile <file> [column to sort] [lines]\n"
+fi
