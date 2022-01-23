@@ -91,3 +91,13 @@ pub fn not(f Fn) Fn {
 		return error('`not` failed because function succeded')
 	}
 }
+
+// Optional parser: Will return '' if not successful.
+pub fn opt(f Fn) Fn {
+	parsers := [f]
+	return fn [parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		rest, output := f(input) or { return input, '' }
+		return rest, output
+	}
+}

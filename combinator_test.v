@@ -60,3 +60,13 @@ fn test_not() ? {
 	assert rest == '123'
 	parser('1234') or { assert true }
 }
+
+fn test_opt() ? {
+	parser := opt(alpha1)
+	rest, output := parser('abcd;') ?
+	assert output == 'abcd'
+	assert rest == ';'
+	rest1, output1 := parser('123;') ?
+	assert output1 == ''
+	assert rest1 == '123;'
+}
