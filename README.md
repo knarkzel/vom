@@ -18,6 +18,13 @@ It is written in V, hence the name.
 
 There are some features I both need and want working in V before I will complete this library:
 
+### Generic return type for closures returned from functions
+
+This is the only feature I absolutely need in order to finish this
+library. Without it, we're stuck with returning `?(string, string)` from each
+parser, and thus can't construct an Ast with the library alone. That's currently
+something you need to do manually.
+
 ### Generic type aliases
 
 - [Aliases with generic parameters #12702](https://github.com/vlang/v/discussions/12702 "Aliases with generic parameters #12702 ")
