@@ -42,3 +42,11 @@ fn test_eof() ? {
 		assert true
 	}
 }
+
+fn test_fail() ? {
+	if _ := fail('string') {
+		assert false
+	} else {
+		assert true
+	}
+}

@@ -55,3 +55,8 @@ pub fn eof(input string) ?(string, string) {
 		return error('`eof` failed because $input is not empty')
 	}
 }
+
+// A parser which always fails.
+pub fn fail(input string) ?(string, string) {
+	return error('`fail` failed')
+}
