@@ -63,6 +63,53 @@
 </div>
 <p><code>vom</code> is a rewrite of <a href="https://github.com/Geal/nom" title="nom">nom</a>, which is a parser combinator library.
 It is written in V, hence the name.</p>
+<h2>When will it reach 1.0?</h2>
+<p>There are some features I both need and want working in V before I will complete this library:</p>
+<h3>Generic return type for closures returned from functions</h3>
+<ul>
+<li><a href="https://github.com/vlang/v/issues/13253" title="Generic return type for closure returned from function doesn't work #13253">Generic return type for closure returned from function doesn't work #13253</a></li>
+</ul>
+<p>This is the only feature I absolutely need in order to finish this
+library. Without it, we're stuck with returning <code>?(string, string)</code> instead of
+<code>?(string, T)</code> from each parser, and thus can't construct an Ast with the
+library alone. That's currently something you need to do manually.</p>
+<h3>Generic type aliases</h3>
+<ul>
+<li><a href="https://github.com/vlang/v/discussions/12702" title="Aliases with generic parameters #12702 ">Aliases with generic parameters #12702</a></li>
+</ul>
+<p>Currently this isn't implemented yet. Although it's not required in order to
+implement the features that are missing, it will make the codebase look horrible
+without because almost all of the functions depend on following:</p>
+<pre><code class="language-v">type Fn = fn (string) ?(string, string)
+type FnMany = fn (string) ?(string, []string)
+</code></pre>
+<p>And I need the last argument to be generic, because parsers could return other
+types such as int, token, []token etc. Although I could search and replace each
+entry manually, I'm too lazy to do that.</p>
+<h3>Functions that return closure that captures functions from function parameter</h3>
+<ul>
+<li><a href="https://github.com/vlang/v/issues/13032" title="Closures fail when capturing parameters that are functions #13032">Closures fail when capturing parameters that are functions #13032</a></li>
+</ul>
+<p>This is not a necessary issue either, but it would aid remove lots of
+boilerplate in the current code, for instance from <a href="https://github.com/knarkzel/vom/blob/master/sequence.v" title="sequence.v">sequence.v</a>.</p>
+<h3>Call closure returned from function immediately</h3>
+<ul>
+<li><a href="https://github.com/vlang/v/issues/13051" title="Closures created from functions can't be called immediately #13051">Closures created from functions can't be called immediately #13051</a></li>
+</ul>
+<p>This is again not a mandatory feature for this library to work, but would be a
+nice addition. Instead of following code:</p>
+<pre><code class="language-v">fn operator(input string, location Location) ?(string, Token) {
+    parser := alt(tag('+'), tag('-'), tag('&lt;'))
+    rest, output := parser(input) ?
+    return rest, Token{output, location, .operator}
+}
+</code></pre>
+<p>We could write this instead, which is a very common pattern in <code>nom</code>:</p>
+<pre><code class="language-v">fn operator(input string, location Location) ?(string, Token) {
+    rest, output := alt(tag('+'), tag('-'), tag('&lt;'))(input) ?
+    return rest, Token{output, location, .operator}
+}
+</code></pre>
 <h2>Install</h2>
 <pre><code class="language-bash">v install --git https://github.com/knarkzel/vom
 </code></pre>
@@ -355,7 +402,7 @@ parser and discards it.</p>
 </section>
 
 						<div class="footer">
-							Powered by vdoc. Generated on: 22 Jan 2022 02:38:58
+							Powered by vdoc. Generated on: 23 Jan 2022 00:13:50
 						</div>
 					</div>
 					
