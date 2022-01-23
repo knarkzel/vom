@@ -1,4 +1,4 @@
-name: CI
+name: docs
 
 on:
   pull_request:
@@ -22,11 +22,3 @@ jobs:
         with:
           branch: docs
           folder: _docs
-  test:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build V
-        run: git clone https://github.com/vlang/v ../v && cd ../v && git checkout c97f0c5 && make
-      - name: Test Vom
-        run:: ../v/v test .
