@@ -159,7 +159,6 @@ pub fn take_while_m_n(m int, n int, condition fn (byte) bool) Fn {
 			if condition(c) && m <= len {
 				longest = len
 			}
-			println('$i $longest $input $c')
 			if len == n {
 				break
 			}
