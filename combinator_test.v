@@ -24,3 +24,10 @@ fn test_condition() ? {
 	assert output1 == ''
 	assert rest1 == 'abcd;'
 }
+
+fn test_recognize() ? {
+	parser := recognize(separated_pair(alpha1, tag(','), alpha1))
+	rest, output := parser('abcd,efgh') ?
+	assert output == 'abcd,efgh'
+	assert rest == ''
+}

@@ -28,3 +28,21 @@ pub fn condition(b bool, f Fn) Fn {
 		}
 	}
 }
+
+// If the child parser was successful, return the consumed input as produced value.
+pub fn recognize(f Parser) Fn {
+	parsers := [f]
+	return fn [parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		match f {
+			Fn {
+				rest, output := f(input) ?
+				return rest, input[..input.len - rest.len]
+			}
+			FnMany {
+				rest, output := f(input) ?
+				return rest, input[..input.len - rest.len]
+			}
+		}
+	}
+}
