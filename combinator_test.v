@@ -11,3 +11,16 @@ fn test_all_consuming() ? {
 		assert true
 	}
 }
+
+fn test_condition() ? {
+	parser := fn (b bool, i string) ?(string, string) {
+		temp := condition(b, alpha1)
+		return temp(i)
+	}
+	rest, output := parser(true, 'abcd;') ?
+	assert output == 'abcd'
+	assert rest == ';'
+	rest1, output1 := parser(false, 'abcd;') ?
+	assert output1 == ''
+	assert rest1 == 'abcd;'
+}

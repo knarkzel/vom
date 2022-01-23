@@ -15,3 +15,16 @@ pub fn all_consuming(f Fn) Fn {
 		}
 	}
 }
+
+// Calls the parser if the condition is met.
+pub fn condition(b bool, f Fn) Fn {
+	parsers := [f]
+	return fn [b, parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		if b {
+			return f(input)
+		} else {
+			return input, ''
+		}
+	}
+}
