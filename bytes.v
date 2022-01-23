@@ -127,7 +127,7 @@ pub fn take_while(cond fn (byte) bool) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_while` failed on input `$input`')
+		return '', input
 	}
 }
 
@@ -144,7 +144,7 @@ pub fn take_while1(cond fn (byte) bool) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_while` failed on input `$input`')
+		return '', input
 	}
 }
 

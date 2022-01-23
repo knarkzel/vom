@@ -7,7 +7,7 @@ fn test_alpha0() ? {
 }
 
 fn test_alpha1() ? {
-	rest, output := alpha0('aB1c') ?
+	rest, output := alpha1('aB1c') ?
 	assert output == 'aB'
 	assert rest == '1c'
 }
