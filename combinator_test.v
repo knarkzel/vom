@@ -70,3 +70,11 @@ fn test_opt() ? {
 	assert output1 == ''
 	assert rest1 == '123;'
 }
+
+fn test_peek() ? {
+	parser := peek(alpha1)
+	rest, output := parser('abcd;') ?
+	assert output == 'abcd'
+	assert rest == 'abcd;'
+	parser('123;') or { assert true }
+}

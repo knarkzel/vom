@@ -101,3 +101,13 @@ pub fn opt(f Fn) Fn {
 		return rest, output
 	}
 }
+
+// Tries to apply its parser without consuming the input.
+pub fn peek(f Fn) Fn {
+	parsers := [f]
+	return fn [parsers] (input string) ?(string, string) {
+		f := parsers[0]
+		_, output := f(input) ?
+		return input, output
+	}
+}
