@@ -155,16 +155,19 @@ pub fn take_while_m_n(m int, n int, condition fn (byte) bool) Fn {
 		condition := parsers[0]
 		mut longest := -1
 		for i, c in input.bytes() {
-			if condition(c) && m <= i {
-				longest = i
+			len := i + 1
+			if condition(c) && m <= len {
+				longest = len
 			}
-			if i >= n {
+			println('$i $longest $input $c')
+			if len == n {
 				break
 			}
 		}
 		if longest != -1 {
 			return input[longest..], input[..longest]
+		} else {
+			return error('`take_while_m_n` failed on input `$input` with m `$m` and n `$n`')
 		}
-		return error('`take_while_m_n` failed on input `$input` with m `$m` and n `$n`')
 	}
 }

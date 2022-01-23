@@ -86,4 +86,10 @@ fn test_take_while_m_n() ? {
 	rest, output := parser('DEab12') ?
 	assert output == 'DE'
 	assert rest == 'ab12'
+	rest1, output1 := parser(rest) ?
+	assert output1 == 'ab'
+	assert rest1 == '12'
+	rest2, output2 := parser(rest1) ?
+	assert output2 == '12'
+	assert rest2 == ''
 }
