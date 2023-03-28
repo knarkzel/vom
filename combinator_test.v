@@ -1,79 +1,79 @@
 module vom
 
-fn test_all_consuming() ? {
+fn test_all_consuming() ! {
 	parser := all_consuming(alpha1)
-	rest, output := parser('abcd') ?
+	rest, output := parser('abcd') !
 	assert output == 'abcd'
 	assert rest == ''
 	parser('abcd1') or { assert true }
 }
 
-fn test_cond() ? {
-	parser := fn (b bool, i string) ?(string, string) {
+fn test_cond() ! {
+	parser := fn (b bool, i string) !(string, string) {
 		temp := cond(b, alpha1)
 		return temp(i)
 	}
-	rest, output := parser(true, 'abcd;') ?
+	rest, output := parser(true, 'abcd;') ! 
 	assert output == 'abcd'
 	assert rest == ';'
-	rest1, output1 := parser(false, 'abcd;') ?
+	rest1, output1 := parser(false, 'abcd;') !
 	assert output1 == ''
 	assert rest1 == 'abcd;'
 }
 
-fn test_recognize() ? {
+fn test_recognize() ! {
 	parser := recognize(separated_pair(alpha1, tag(','), alpha1))
-	rest, output := parser('abcd,efgh') ?
+	rest, output := parser('abcd,efgh') !
 	assert output == 'abcd,efgh'
 	assert rest == ''
 }
 
-fn test_eof() ? {
-	rest, output := eof('') ?
+fn test_eof() ! {
+	rest, output := eof('') !
 	assert output == ''
 	assert rest == ''
-	if _ := eof('abc') {
+	if _,_ := eof('abc') {
 		assert false
 	} else {
 		assert true
 	}
 }
 
-fn test_fail() ? {
-	if _ := fail('string') {
+fn test_fail() ! {
+	if _,_ := fail('string') {
 		assert false
 	} else {
 		assert true
 	}
 }
 
-// fn test_flat_map() ? {
+// fn test_flat_map() ! {
 //}
 
-// fn test_map() ? {
+// fn test_map() ! {
 //}
 
-fn test_not() ? {
+fn test_not() ! {
 	parser := not(alpha1)
-	rest, output := parser('123') ?
+	rest, output := parser('123') !
 	assert output == ''
 	assert rest == '123'
 	parser('1234') or { assert true }
 }
 
-fn test_opt() ? {
+fn test_opt() ! {
 	parser := opt(alpha1)
-	rest, output := parser('abcd;') ?
+	rest, output := parser('abcd;') !
 	assert output == 'abcd'
 	assert rest == ';'
-	rest1, output1 := parser('123;') ?
+	rest1, output1 := parser('123;') !
 	assert output1 == ''
 	assert rest1 == '123;'
 }
 
-fn test_peek() ? {
+fn test_peek() ! {
 	parser := peek(alpha1)
-	rest, output := parser('abcd;') ?
+	rest, output := parser('abcd;') !
 	assert output == 'abcd'
 	assert rest == 'abcd;'
 	parser('123;') or { assert true }

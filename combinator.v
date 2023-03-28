@@ -5,9 +5,9 @@ module vom
 // Succeeds if all the input has been consumed by its child parser.
 pub fn all_consuming(f Fn) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
+	return fn [parsers] (input string) ! (string, string) {
 		f := parsers[0]
-		rest, output := f(input) ?
+		rest, output := f(input) !
 		if rest.len == 0 {
 			return rest, output
 		} else {
@@ -19,7 +19,7 @@ pub fn all_consuming(f Fn) Fn {
 // Calls the parser if the condition is met.
 pub fn cond(b bool, f Fn) Fn {
 	parsers := [f]
-	return fn [b, parsers] (input string) ?(string, string) {
+	return fn [b, parsers] (input string) !(string, string) {
 		f := parsers[0]
 		if b {
 			return f(input)
@@ -30,7 +30,7 @@ pub fn cond(b bool, f Fn) Fn {
 }
 
 // Returns its input if it is at the end of input data
-pub fn eof(input string) ?(string, string) {
+pub fn eof(input string) !(string, string) {
 	if input.len == 0 {
 		return input, input
 	} else {
@@ -39,14 +39,14 @@ pub fn eof(input string) ?(string, string) {
 }
 
 // A parser which always fails.
-pub fn fail(input string) ?(string, string) {
+pub fn fail(input string) !(string, string) {
 	return error('`fail` failed')
 }
 
 // Succeeds if the child parser returns an error.
 pub fn not(f Fn) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
+	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
 		f(input) or { return input, '' }
 		return error('`not` failed because function succeded')
@@ -56,7 +56,7 @@ pub fn not(f Fn) Fn {
 // Optional parser: Will return '' if not successful.
 pub fn opt(f Fn) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
+	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
 		rest, output := f(input) or { return input, '' }
 		return rest, output
@@ -66,9 +66,9 @@ pub fn opt(f Fn) Fn {
 // Tries to apply its parser without consuming the input.
 pub fn peek(f Fn) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
+	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
-		_, output := f(input) ?
+		_, output := f(input) ! 
 		return input, output
 	}
 }
@@ -76,15 +76,15 @@ pub fn peek(f Fn) Fn {
 // If the child parser was successful, return the consumed input as produced value.
 pub fn recognize(f Parser) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ?(string, string) {
+	return fn [parsers] (input string) ! (string, string) {
 		f := parsers[0]
 		match f {
 			Fn {
-				rest, _ := f(input) ?
+				rest, _ := f(input) !
 				return rest, input[..input.len - rest.len]
 			}
 			FnMany {
-				rest, _ := f(input) ?
+				rest, _ := f(input) !
 				return rest, input[..input.len - rest.len]
 			}
 		}
