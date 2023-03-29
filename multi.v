@@ -30,3 +30,4 @@ pub fn fill(f Fn, mut buf []string) FnMany {
 		return temp, []string{}
 	}
 }
+
