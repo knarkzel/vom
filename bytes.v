@@ -16,7 +16,7 @@ pub fn escaped(normal Fn, control_char rune, escapable Fn) Fn {
 		g, h := normal(e) or { e, '' }
 
 		if input == g {
-			return error('escaped fail')
+			return error('`escaped` fail')
 		}
 		return g, b + d + f + h
 	}

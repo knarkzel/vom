@@ -1,6 +1,6 @@
 module vom
 
-// Based on https://docs.rs/nom/7.1.0/nom/character/index.html
+// Based on https://docs.rs/nom/7.1.3/nom/character/index.html
 
 // Tests if byte is ASCII alphabetic: A-Z, a-z.
 pub fn is_alphabetic(b byte) bool {
@@ -37,7 +37,7 @@ pub fn is_space(b byte) bool {
 	return ' \t'.bytes().any(it == b)
 }
 
-// Based on https://docs.rs/nom/7.1.0/nom/character/complete/index.html
+// Based on https://docs.rs/nom/7.1.3/nom/character/complete/index.html
 
 // Recognizes zero or more lowercase and uppercase ASCII alphabetic characters: a-z, A-Z
 pub fn alpha0(input string) !(string, string) {

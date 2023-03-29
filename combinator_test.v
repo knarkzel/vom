@@ -47,8 +47,14 @@ fn test_fail() ! {
 	}
 }
 
-// fn test_flat_map() ! {
-//}
+/*
+fn test_flat_map() ! {
+	parser := flat_map(u8, take)
+	rest, output := parser('2 78334') !
+	assert rest == '334'
+	assert output == '78'
+}
+*/
 
 // fn test_map() ! {
 //}
@@ -78,3 +84,13 @@ fn test_peek() ! {
 	assert rest == 'abcd;'
 	parser('123;') or { assert true }
 }
+
+fn test_value() ! {
+	parser := value(1234, alpha1)
+	output := parser('abcd') or { 5678 }
+	assert output == 1234
+
+	output1 := parser('4323abcd') or { 5678 }
+	assert output1 == 5678
+}
+

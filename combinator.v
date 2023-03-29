@@ -43,6 +43,16 @@ pub fn fail(input string) !(string, string) {
 	return error('`fail` failed')
 }
 
+/*
+// Creates a new parser from the output of the first parser, then apply that parser over the rest of the input.
+pub fn flat_map(parser Fn, applied_parser Fn) Fn {
+        return fn [parser, applied_parser] (input string) !(string, string) {
+                _, a := parser(input) !
+		return applied_parser(a) !
+        }
+}
+*/
+
 // Succeeds if the child parser returns an error.
 pub fn not(f Fn) Fn {
 	parsers := [f]
@@ -90,3 +100,12 @@ pub fn recognize(f Parser) Fn {
 		}
 	}
 }
+
+// Returns the provided value if the child parser succeeds.
+pub fn value[T](val T, parser Fn) fn (string) ! T {
+	return fn [val, parser] [T] (input string) ! T {
+		parser(input) or { return error('`value` fail') }
+		return val
+	}
+}
+
