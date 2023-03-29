@@ -5,13 +5,13 @@ module vom
 // Succeeds if all the input has been consumed by its child parser.
 pub fn all_consuming(f Fn) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ! (string, string) {
+	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
-		rest, output := f(input) !
+		rest, output := f(input)!
 		if rest.len == 0 {
 			return rest, output
 		} else {
-			return error('`all_consuming` failed because $rest is not empty')
+			return error('`all_consuming` failed because ${rest} is not empty')
 		}
 	}
 }
@@ -34,7 +34,7 @@ pub fn eof(input string) !(string, string) {
 	if input.len == 0 {
 		return input, input
 	} else {
-		return error('`eof` failed because $input is not empty')
+		return error('`eof` failed because ${input} is not empty')
 	}
 }
 
@@ -78,7 +78,7 @@ pub fn peek(f Fn) Fn {
 	parsers := [f]
 	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
-		_, output := f(input) ! 
+		_, output := f(input)!
 		return input, output
 	}
 }
@@ -86,15 +86,15 @@ pub fn peek(f Fn) Fn {
 // If the child parser was successful, return the consumed input as produced value.
 pub fn recognize(f Parser) Fn {
 	parsers := [f]
-	return fn [parsers] (input string) ! (string, string) {
+	return fn [parsers] (input string) !(string, string) {
 		f := parsers[0]
 		match f {
 			Fn {
-				rest, _ := f(input) !
+				rest, _ := f(input)!
 				return rest, input[..input.len - rest.len]
 			}
 			FnMany {
-				rest, _ := f(input) !
+				rest, _ := f(input)!
 				return rest, input[..input.len - rest.len]
 			}
 		}
@@ -102,10 +102,22 @@ pub fn recognize(f Parser) Fn {
 }
 
 // Returns the provided value if the child parser succeeds.
-pub fn value[T](val T, parser Fn) fn (string) ! T {
-	return fn [val, parser] [T] (input string) ! T {
+pub fn value[T](val T, parser Fn) fn (string) !T {
+	return fn [val, parser] [T](input string) !T {
 		parser(input) or { return error('`value` fail') }
 		return val
 	}
 }
 
+// Returns the result of the child parser if it satisfies a verification function.
+// The verification function takes as argument a reference to the output of the parser.
+pub fn verify(first Fn, second fn (string) bool) fn (string) !string {
+	return fn [first, second] (input string) !string {
+		_, output := first(input) or { return error('`verify` fail') }
+		if second(output) {
+			return output
+		} else {
+			return error('`verify` ${second} fail')
+		}
+	}
+}
