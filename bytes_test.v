@@ -22,7 +22,7 @@ fn test_tag() ! {
 }
 
 fn test_tag_no_case() ! {
-	parser := tag_no_case('hello')
+	parser := tag_no_case('hEllo')
 	rest, output := parser('HeLLo, World!') !
 	assert output == 'HeLLo'
 	assert rest == ', World!'

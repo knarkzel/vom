@@ -1,6 +1,6 @@
 module vom
 
-// Based on https://docs.rs/nom/latest/nom/bytes/complete/index.html
+// Based on https://docs.rs/nom/7.1.3/nom/bytes/complete/index.html
 
 // Returns the longest slice that matches any character in the pattern.
 pub fn is_a(pattern string) Fn {
@@ -46,7 +46,7 @@ pub fn tag_no_case(pattern string) Fn {
 		if input.len < pattern.len {
 			return error('`tag_no_case` failed because input `$input` is shorter than pattern `$pattern`')
 		}
-		if input[..pattern.len].to_lower() == pattern {
+		if input[..pattern.len].to_lower() == pattern.to_lower() {
 			return input[pattern.len..], input[..pattern.len]
 		} else {
 			return error('`tag_no_case` failed because `$input[..pattern.len].to_lower()` is not equal to pattern `$pattern`')

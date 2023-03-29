@@ -1,6 +1,6 @@
 module vom
 
-// Based on https://docs.rs/nom/7.1.0/nom/branch/index.html
+// Based on https://docs.rs/nom/7.1.3/nom/branch/index.html
 
 // Tests a list of parsers one by one until one succeeds.
 pub fn alt(parsers ...Fn) Fn {
