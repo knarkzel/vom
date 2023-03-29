@@ -17,7 +17,7 @@ fn test_delimited() ! {
 fn test_pair() ! {
 	parser := pair(tag('vlang'), tag('awesome'))
 	rest, output := parser('vlangawesome!')!
-	assert output == 'awesome'
+	assert output == ['vlang','awesome']
 	assert rest == '!'
 }
 

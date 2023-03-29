@@ -17,10 +17,11 @@ pub fn delimited(first Fn, second Fn, third Fn) Fn {
 }
 
 // Gets an object from the first parser, then gets another object from the second parser.
-pub fn pair(first Fn, second Fn) Fn {
-	return fn [first, second] (input string) !(string, string) {
-		rest, _ := first(input)!
-		return second(rest)!
+pub fn pair(first Fn, second Fn) FnMany {
+	return fn [first, second] (input string) !(string, []string) {
+		a, b := first(input)!
+		c, d := second(a) !
+		return c,[b,d]
 	}
 }
 
