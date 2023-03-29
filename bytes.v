@@ -2,7 +2,27 @@ module vom
 
 // Based on https://docs.rs/nom/7.1.3/nom/bytes/complete/index.html
 
-// Returns the longest slice that matches any character in the pattern.
+// Matches a byte string with escaped characters.
+// The first argument matches the `normal` characters (it must not accept the control character)
+// The second argument is the `control_char` (like \ in most languages)
+// The third argument matches the escaped characters
+
+pub fn escaped(normal Fn, control_char rune, escapable Fn) Fn {
+	return fn [normal, control_char, escapable] (input string) !(string, string) {
+		check_control_char := tag(control_char.str())
+		a, b := normal(input) or { input, '' }
+		c, d := check_control_char(a) or { a, '' }
+		e, f := escapable(c) or { c, '' }
+		g, h := normal(e) or { e, '' }
+
+		if input == g {
+			return error('escaped fail')
+		}
+		return g, b + d + f + h
+	}
+}
+
+// Returns the longest slice that matches any character in the `pattern`.
 pub fn is_a(pattern string) Fn {
 	return fn [pattern] (input string) !(string, string) {
 		for i, c in input {
@@ -10,7 +30,7 @@ pub fn is_a(pattern string) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`is_a` failed with pattern `$pattern` on input `$input`')
+		return error('`is_a` failed with pattern `${pattern}` on input `${input}`')
 	}
 }
 
@@ -22,50 +42,50 @@ pub fn is_not(pattern string) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`is_not` failed with pattern `$pattern` on input `$input`')
+		return error('`is_not` failed with pattern `${pattern}` on input `${input}`')
 	}
 }
 
-// Recognizes a pattern.
+// Recognizes a `pattern`.
 pub fn tag(pattern string) Fn {
 	return fn [pattern] (input string) !(string, string) {
 		if input.len < pattern.len {
-			return error('`tag` failed because input `$input` is shorter than pattern `$pattern`')
+			return error('`tag` failed because input `${input}` is shorter than pattern `${pattern}`')
 		}
 		if input[..pattern.len] == pattern {
 			return input[pattern.len..], input[..pattern.len]
 		} else {
-			return error('`tag` failed because `$input[..pattern.len]` is not equal to pattern `$pattern`')
+			return error('`tag` failed because `${input}[..pattern.len]` is not equal to pattern `${pattern}`')
 		}
 	}
 }
 
-// Recognizes a case insensitive pattern.
+// Recognizes a case insensitive `pattern`.
 pub fn tag_no_case(pattern string) Fn {
 	return fn [pattern] (input string) !(string, string) {
 		if input.len < pattern.len {
-			return error('`tag_no_case` failed because input `$input` is shorter than pattern `$pattern`')
+			return error('`tag_no_case` failed because input `${input}` is shorter than pattern `${pattern}`')
 		}
 		if input[..pattern.len].to_lower() == pattern.to_lower() {
 			return input[pattern.len..], input[..pattern.len]
 		} else {
-			return error('`tag_no_case` failed because `$input[..pattern.len].to_lower()` is not equal to pattern `$pattern`')
+			return error('`tag_no_case` failed because `${input}[..pattern.len].to_lower()` is not equal to pattern `${pattern}`')
 		}
 	}
 }
 
-// Returns an input slice containing the first N input elements (Input[..N]).
-pub fn take(count int) Fn {
-	return fn [count] (input string) !(string, string) {
-		if input.len < count {
-			return error('`take` failed with count `$count` on input `$input`')
+// Returns an input slice containing the first `n` input elements (Input[..`n`]).
+pub fn take(n int) Fn {
+	return fn [n] (input string) !(string, string) {
+		if input.len < n {
+			return error('`take` failed with count `${n}` on input `${input}`')
 		} else {
-			return input[count..], input[..count]
+			return input[n..], input[..n]
 		}
 	}
 }
 
-// Returns the longest input slice (if any) till a predicate is met.
+// Returns the longest input slice (if any) till a predicate `condition` is met.
 pub fn take_till(condition fn (byte) bool) Fn {
 	parsers := [condition]
 	return fn [parsers] (input string) !(string, string) {
@@ -75,11 +95,11 @@ pub fn take_till(condition fn (byte) bool) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_till` failed on input `$input`')
+		return error('`take_till` failed on input `${input}`')
 	}
 }
 
-// Returns the longest (at least 1) input slice till a predicate is met.
+// Returns the longest (at least 1) input slice till a predicate `condition` is met.
 pub fn take_till1(condition fn (byte) bool) Fn {
 	parsers := [condition]
 	return fn [parsers] (input string) !(string, string) {
@@ -89,11 +109,11 @@ pub fn take_till1(condition fn (byte) bool) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_till1` failed on input `$input`')
+		return error('`take_till1` failed on input `${input}`')
 	}
 }
 
-// Returns the input slice up to the first occurrence of the pattern.
+// Returns the input slice up to the first occurrence of the `pattern`.
 pub fn take_until(pattern string) Fn {
 	return fn [pattern] (input string) !(string, string) {
 		for i := 0; i + pattern.len <= input.len; i++ {
@@ -101,11 +121,11 @@ pub fn take_until(pattern string) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_until` failed on input `$input` with pattern `$pattern`')
+		return error('`take_until` failed on input `${input}` with pattern `${pattern}`')
 	}
 }
 
-// Returns the non empty input slice up to the first occurrence of the pattern.
+// Returns the non empty input slice up to the first occurrence of the `pattern`.
 pub fn take_until1(pattern string) Fn {
 	return fn [pattern] (input string) !(string, string) {
 		for i := 1; i + pattern.len <= input.len; i++ {
@@ -113,11 +133,11 @@ pub fn take_until1(pattern string) Fn {
 				return input[i..], input[..i]
 			}
 		}
-		return error('`take_until1` failed on input `$input` with pattern `$pattern`')
+		return error('`take_until1` failed on input `${input}` with pattern `${pattern}`')
 	}
 }
 
-// Returns the longest input slice (if any) that matches the predicate.
+// Returns the longest input slice (if any) that matches the predicate `condition`.
 pub fn take_while(condition fn (byte) bool) Fn {
 	parsers := [condition]
 	return fn [parsers] (input string) !(string, string) {
@@ -131,7 +151,7 @@ pub fn take_while(condition fn (byte) bool) Fn {
 	}
 }
 
-// Returns the longest (at least 1) input slice that matches the predicate.
+// Returns the longest (at least 1) input slice that matches the predicate `condition`.
 pub fn take_while1(condition fn (byte) bool) Fn {
 	parsers := [condition]
 	return fn [parsers] (input string) !(string, string) {
@@ -139,7 +159,7 @@ pub fn take_while1(condition fn (byte) bool) Fn {
 		for i, c in input.bytes() {
 			if !condition(c) {
 				if i == 0 {
-					return error('`take_while` failed on input `$input` because it returned empty')
+					return error('`take_while` failed on input `${input}` because it returned empty')
 				}
 				return input[i..], input[..i]
 			}
@@ -148,7 +168,7 @@ pub fn take_while1(condition fn (byte) bool) Fn {
 	}
 }
 
-// Returns the longest (m <= len <= n) input slice that matches the predicate.
+// Returns the longest (m <= len <= n) input slice that matches the predicate `condition`.
 pub fn take_while_m_n(m int, n int, condition fn (byte) bool) Fn {
 	parsers := [condition]
 	return fn [m, n, parsers] (input string) !(string, string) {
@@ -166,7 +186,7 @@ pub fn take_while_m_n(m int, n int, condition fn (byte) bool) Fn {
 		if longest != -1 {
 			return input[longest..], input[..longest]
 		} else {
-			return error('`take_while_m_n` failed on input `$input` with m `$m` and n `$n`')
+			return error('`take_while_m_n` failed on input `${input}` with m `${m}` and n `${n}`')
 		}
 	}
 }
