@@ -24,7 +24,7 @@ struct Token {
 }
 
 fn keyword(input string, location Location) !(string, Token) {
-	parser := alt(tag('function'), tag('end'), tag('if'), tag('then'), tag('lal'), tag('return'))
+	parser := alt([tag('function'), tag('end'), tag('if'), tag('then'), tag('lal'), tag('return')])
 	rest, output := parser(input) !
 	return rest, Token{output, location, .keyword}
 }
