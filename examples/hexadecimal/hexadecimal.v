@@ -21,7 +21,7 @@ fn hex_primary(input string) !(string, string) {
 fn hex_color(input string) !(string, Color) {
 	discard := tag('#')
 	hex_part, _ := discard(input) ! 
-	parser := tuple(hex_primary, hex_primary, hex_primary)
+	parser := tuple([hex_primary, hex_primary, hex_primary])
 	rest, output := parser(hex_part) !
 	red, green, blue := from_hex(output[0]) , from_hex(output[1]) , from_hex(output[2])
 	return rest, Color{red, green, blue}

@@ -1,14 +1,7 @@
 module vom
 
 fn test_tuple() ! {
-	parser := tuple(tag('#'), take(5), tag(' :D'))
-	rest, output := parser('#hello :D...')!
-	assert output == ['#', 'hello', ' :D']
-	assert rest == '...'
-}
-
-fn test_list() ! {
-	parser := list([tag('#'), take(5), tag(' :D')])
+	parser := tuple([tag('#'), take(5), tag(' :D')])
 	rest, output := parser('#hello :D...')!
 	assert output == ['#', 'hello', ' :D']
 	assert rest == '...'

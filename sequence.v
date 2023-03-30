@@ -66,21 +66,7 @@ pub fn terminated(first Fn, second Fn) Fn {
 }
 
 // Applies a tuple of parsers one by one and returns their results as a tuple.
-pub fn tuple(parsers ...Fn) FnMany {
-	return fn [parsers] (input string) !(string, []string) {
-		mut temp := input
-		mut output := []string{}
-		for parser in parsers {
-			rest, slice := parser(temp)!
-			output << slice
-			temp = rest
-		}
-		return temp, output
-	}
-}
-
-// Applies a list of parsers one by one and returns their results as a tuple.
-pub fn list(parsers []Fn) FnMany {
+pub fn tuple(parsers []Fn) FnMany {
 	return fn [parsers] (input string) !(string, []string) {
 		mut temp := input
 		mut output := []string{}

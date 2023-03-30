@@ -3,7 +3,7 @@ module vom
 // Based on https://docs.rs/nom/7.1.3/nom/branch/index.html
 
 // Tests a list of `parsers` one by one until one succeeds.
-pub fn alt(parsers ...Fn) Fn {
+pub fn alt(parsers []Fn) Fn {
 	return fn [parsers] (input string) !(string, string) {
 		for parser in parsers {
 			temp, output := parser(input) or { continue }
@@ -15,14 +15,14 @@ pub fn alt(parsers ...Fn) Fn {
 
 // Applies a list of `parsers` in any order.
 // Permutation will succeed if all of the child `parsers` succeeded. It takes as argument a tuple of `parsers`, and returns a tuple of the parser results.
-pub fn permutation(parsers ...Fn) FnMany {
+pub fn permutation(parsers []Fn) FnMany {
 	return fn [parsers] (input string) !(string, []string) {
 		for perm in quick_perm(parsers.len) {
 			mut functions := []Fn{}
 			for i in perm {
 				functions << parsers[i]
 			}
-			parser := tuple(...functions)
+			parser := tuple(functions)
 			// the code above should just work as below, bug for now:
 			// parser := tuple(...perm.map(parsers[index]))
 			temp, output := parser(input) or { continue }

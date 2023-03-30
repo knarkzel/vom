@@ -101,7 +101,7 @@ pub fn hex_digit1(input string) !(string, string) {
 
 // Recognizes an end of line (both '\n' and '\r\n').
 pub fn line_ending(input string) !(string, string) {
-	parser := alt(tag('\n'), tag('\r\n'))
+	parser := alt([tag('\n'), tag('\r\n')])
 	return parser(input)
 }
 
