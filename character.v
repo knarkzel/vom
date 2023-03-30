@@ -136,7 +136,7 @@ pub fn none_of(pattern string) Fn {
 		if pattern.bytes().all(it != input[0]) {
 			return input[1..], input[..1]
 		} else {
-			return error('`none_of` failed on input `$input` with pattern `$pattern`')
+			return error('`none_of` failed on input `${input}` with pattern `${pattern}`')
 		}
 	}
 }
@@ -170,7 +170,7 @@ pub fn one_of(pattern string) Fn {
 		if pattern.bytes().any(it == input[0]) {
 			return input[1..], input[..1]
 		} else {
-			return error('`one_of` failed on input `$input` with pattern `$pattern`')
+			return error('`one_of` failed on input `${input}` with pattern `${pattern}`')
 		}
 	}
 }
@@ -186,7 +186,7 @@ pub fn satisfy(condition fn (byte) bool) Fn {
 		if condition(input[0]) {
 			return input[1..], input[..1]
 		} else {
-			return error('`satisfy` failed on input `$input`')
+			return error('`satisfy` failed on input `${input}`')
 		}
 	}
 }

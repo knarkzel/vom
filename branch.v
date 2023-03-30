@@ -9,7 +9,7 @@ pub fn alt(parsers []Fn) Fn {
 			temp, output := parser(input) or { continue }
 			return temp, output
 		}
-		return error('`alt` failed on input `$input` with `$parsers.len` parsers')
+		return error('`alt` failed on input `${input}` with `${parsers.len}` parsers')
 	}
 }
 
@@ -28,7 +28,7 @@ pub fn permutation(parsers []Fn) FnMany {
 			temp, output := parser(input) or { continue }
 			return temp, output
 		}
-		return error('`permutation` failed on `$input` because no permutations were found')
+		return error('`permutation` failed on `${input}` because no permutations were found')
 	}
 }
 

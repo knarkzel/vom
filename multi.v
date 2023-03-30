@@ -10,7 +10,7 @@ pub fn count(f Fn, count int) FnMany {
 		mut temp := input
 		mut output := []string{}
 		for _ in 0 .. count {
-			rest, capture := f(temp) !
+			rest, capture := f(temp)!
 			temp = rest
 			output << capture
 		}
@@ -25,9 +25,8 @@ pub fn fill(f Fn, mut buf []string) FnMany {
 		f := parsers[0]
 		mut temp := input
 		for mut b in buf {
-			temp, b = f(temp) !
+			temp, b = f(temp)!
 		}
 		return temp, []string{}
 	}
 }
-

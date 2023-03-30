@@ -24,34 +24,35 @@ struct Token {
 }
 
 fn keyword(input string, location Location) !(string, Token) {
-	parser := alt([tag('function'), tag('end'), tag('if'), tag('then'), tag('lal'), tag('return')])
-	rest, output := parser(input) !
+	parser := alt([tag('function'), tag('end'), tag('if'), tag('then'),
+		tag('lal'), tag('return')])
+	rest, output := parser(input)!
 	return rest, Token{output, location, .keyword}
 }
 
 fn identifier(input string, location Location) !(string, Token) {
-	rest, output := alphanumeric1(input) !
+	rest, output := alphanumeric1(input)!
 	if is_digit(output[0]) {
-		return error('$output starts with digit')
+		return error('${output} starts with digit')
 	} else {
 		return rest, Token{output, location, .identifier}
 	}
 }
 
 fn number(input string, location Location) !(string, Token) {
-	rest, output := digit1(input) !
+	rest, output := digit1(input)!
 	return rest, Token{output, location, .number}
 }
 
 fn syntax(input string, location Location) !(string, Token) {
 	parser := one_of(';=(),')
-	rest, output := parser(input) !
+	rest, output := parser(input)!
 	return rest, Token{output, location, .syntax}
 }
 
 fn operator(input string, location Location) !(string, Token) {
 	parser := one_of('+-<')
-	rest, output := parser(input) !
+	rest, output := parser(input)!
 	return rest, Token{output, location, .operator}
 }
 
@@ -87,7 +88,7 @@ fn main() {
 		println('lua <file>')
 		return
 	}
-	input := os.read_file(path) !
+	input := os.read_file(path)!
 	if tokens := lex(input) {
 		dump(tokens)
 	}
