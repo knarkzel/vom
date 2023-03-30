@@ -20,8 +20,8 @@ pub fn delimited(first Fn, second Fn, third Fn) Fn {
 pub fn pair(first Fn, second Fn) FnMany {
 	return fn [first, second] (input string) !(string, []string) {
 		a, b := first(input)!
-		c, d := second(a) !
-		return c,[b,d]
+		c, d := second(a)!
+		return c, [b, d]
 	}
 }
 
@@ -67,6 +67,20 @@ pub fn terminated(first Fn, second Fn) Fn {
 
 // Applies a tuple of parsers one by one and returns their results as a tuple.
 pub fn tuple(parsers ...Fn) FnMany {
+	return fn [parsers] (input string) !(string, []string) {
+		mut temp := input
+		mut output := []string{}
+		for parser in parsers {
+			rest, slice := parser(temp)!
+			output << slice
+			temp = rest
+		}
+		return temp, output
+	}
+}
+
+// Applies a list of parsers one by one and returns their results as a tuple.
+pub fn list(parsers []Fn) FnMany {
 	return fn [parsers] (input string) !(string, []string) {
 		mut temp := input
 		mut output := []string{}

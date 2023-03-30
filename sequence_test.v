@@ -7,6 +7,13 @@ fn test_tuple() ! {
 	assert rest == '...'
 }
 
+fn test_list() ! {
+	parser := list([tag('#'), take(5), tag(' :D')])
+	rest, output := parser('#hello :D...')!
+	assert output == ['#', 'hello', ' :D']
+	assert rest == '...'
+}
+
 fn test_delimited() ! {
 	parser := delimited(tag('<h1>'), take(6), tag('</h1>'))
 	rest, output := parser('<h1>Hello!</h1>...')!
@@ -17,7 +24,7 @@ fn test_delimited() ! {
 fn test_pair() ! {
 	parser := pair(tag('vlang'), tag('awesome'))
 	rest, output := parser('vlangawesome!')!
-	assert output == ['vlang','awesome']
+	assert output == ['vlang', 'awesome']
 	assert rest == '!'
 }
 
