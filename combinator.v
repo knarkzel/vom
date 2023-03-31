@@ -1,12 +1,10 @@
 module vom
 
-// Based on https://docs.rs/nom/7.1.0/nom/combinator/index.html
+// Based on https://docs.rs/nom/7.1.3/nom/combinator/index.html
 
 // Succeeds if all the input has been consumed by its child parser.
 pub fn all_consuming(f Fn) Fn {
-	parsers := [f]
-	return fn [parsers] (input string) !(string, string) {
-		f := parsers[0]
+	return fn [f] (input string) !(string, string) {
 		rest, output := f(input)!
 		if rest.len == 0 {
 			return rest, output
@@ -18,9 +16,7 @@ pub fn all_consuming(f Fn) Fn {
 
 // Calls the parser if the condition is met.
 pub fn cond(b bool, f Fn) Fn {
-	parsers := [f]
-	return fn [b, parsers] (input string) !(string, string) {
-		f := parsers[0]
+	return fn [b, f] (input string) !(string, string) {
 		if b {
 			return f(input)
 		} else {
@@ -55,9 +51,7 @@ pub fn flat_map(parser Fn, applied_parser Fn) Fn {
 
 // Succeeds if the child parser returns an error.
 pub fn not(f Fn) Fn {
-	parsers := [f]
-	return fn [parsers] (input string) !(string, string) {
-		f := parsers[0]
+	return fn [f] (input string) !(string, string) {
 		f(input) or { return input, '' }
 		return error('`not` failed because function succeded')
 	}
@@ -65,9 +59,7 @@ pub fn not(f Fn) Fn {
 
 // Optional parser: Will return '' if not successful.
 pub fn opt(f Fn) Fn {
-	parsers := [f]
-	return fn [parsers] (input string) !(string, string) {
-		f := parsers[0]
+	return fn [f] (input string) !(string, string) {
 		rest, output := f(input) or { return input, '' }
 		return rest, output
 	}
@@ -75,9 +67,7 @@ pub fn opt(f Fn) Fn {
 
 // Tries to apply its parser without consuming the input.
 pub fn peek(f Fn) Fn {
-	parsers := [f]
-	return fn [parsers] (input string) !(string, string) {
-		f := parsers[0]
+	return fn [f] (input string) !(string, string) {
 		_, output := f(input)!
 		return input, output
 	}
@@ -97,14 +87,20 @@ pub fn recognize(f Parser) Fn {
 				rest, _ := f(input)!
 				return rest, input[..input.len - rest.len]
 			}
+			FnCount {
+				return error("`recognize` can't use with FnCount type.")
+			}
+			FnResult {
+				return error("`recognize` can't use with FnResult type.")
+			}
 		}
 	}
 }
 
 // Returns the provided value if the child parser succeeds.
-pub fn value[T](val T, parser Fn) fn (string) !T {
-	return fn [val, parser] [T](input string) !T {
-		parser(input) or { return error('`value` fail') }
+pub fn value[T](val T, f Fn) fn (string) !T {
+	return fn [val, f] [T](input string) !T {
+		f(input) or { return error('`value` fail') }
 		return val
 	}
 }

@@ -130,14 +130,16 @@ fn test_take_while1() ! {
 }
 
 fn test_take_while_m_n() ! {
+	mut rest := ''
+	mut output := ''
 	parser := take_while_m_n(2, 2, is_hex_digit)
-	rest, output := parser('DEab12')!
+	rest, output = parser('DEab12')!
 	assert output == 'DE'
 	assert rest == 'ab12'
-	rest1, output1 := parser(rest)!
-	assert output1 == 'ab'
-	assert rest1 == '12'
-	rest2, output2 := parser(rest1)!
-	assert output2 == '12'
-	assert rest2 == ''
+	rest, output = parser(rest)!
+	assert output == 'ab'
+	assert rest == '12'
+	rest, output = parser(rest)!
+	assert output == '12'
+	assert rest == ''
 }

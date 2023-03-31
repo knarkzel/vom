@@ -163,5 +163,5 @@ There are examples in the `examples/` folder.
 
 ## Resources
 
-- [nom::recipes](https://docs.rs/nom/7.1.0/nom/recipes/index.html)
+- [nom::recipes](https://docs.rs/nom/7.1.3/nom/recipes/index.html)
 - [nom/examples](https://github.com/Geal/nom/tree/main/examples)

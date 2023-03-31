@@ -177,9 +177,7 @@ pub fn one_of(pattern string) Fn {
 
 // Recognizes one character and checks that it satisfies a predicate
 pub fn satisfy(condition fn (byte) bool) Fn {
-	parsers := [condition]
-	return fn [parsers] (input string) !(string, string) {
-		condition := parsers[0]
+	return fn [condition] (input string) !(string, string) {
 		if input.len == 0 {
 			return error('`satisfy` failed because input is empty')
 		}
