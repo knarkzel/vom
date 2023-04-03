@@ -12,16 +12,16 @@ fn from_hex(input string) byte {
 	return '0x${input}'.u8()
 }
 
-fn hex_primary(input string) !(string, string) {
+fn hex_primary(input string) !(string, string, int) {
 	parser := take_while_m_n(2, 2, is_hex_digit)
 	return parser(input)
 }
 
 fn hex_color(input string) !(string, Color) {
 	discard := tag('#')
-	hex_part, _ := discard(input)!
+	hex_part, _, _ := discard(input)!
 	parser := tuple([hex_primary, hex_primary, hex_primary])
-	rest, output := parser(hex_part)!
+	rest, output, _ := parser(hex_part)!
 	red, green, blue := from_hex(output[0]), from_hex(output[1]), from_hex(output[2])
 	return rest, Color{red, green, blue}
 }

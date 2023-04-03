@@ -4,10 +4,10 @@ module vom
 
 // Tests a list of `parsers` one by one until one succeeds.
 pub fn alt(parsers []Fn) Fn {
-	return fn [parsers] (input string) !(string, string) {
+	return fn [parsers] (input string) !(string, string, int) {
 		for parser in parsers {
-			temp, output := parser(input) or { continue }
-			return temp, output
+			temp, output, len := parser(input) or { continue }
+			return temp, output, len
 		}
 		return error('`alt` failed on input `${input}` with `${parsers.len}` parsers')
 	}
@@ -16,7 +16,7 @@ pub fn alt(parsers []Fn) Fn {
 // Applies a list of `parsers` in any order.
 // Permutation will succeed if all of the child `parsers` succeeded. It takes as argument a tuple of `parsers`, and returns a tuple of the parser results.
 pub fn permutation(parsers []Fn) FnMany {
-	return fn [parsers] (input string) !(string, []string) {
+	return fn [parsers] (input string) !(string, []string, int) {
 		for perm in quick_perm(parsers.len) {
 			mut functions := []Fn{}
 			for i in perm {
@@ -25,8 +25,8 @@ pub fn permutation(parsers []Fn) FnMany {
 			parser := tuple(functions)
 			// the code above should just work as below, bug for now:
 			// parser := tuple(...perm.map(parsers[index]))
-			temp, output := parser(input) or { continue }
-			return temp, output
+			temp, output, len := parser(input) or { continue }
+			return temp, output, len
 		}
 		return error('`permutation` failed on `${input}` because no permutations were found')
 	}

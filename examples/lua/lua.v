@@ -26,7 +26,7 @@ struct Token {
 fn keyword(input string, location Location) !(string, Token) {
 	parser := alt([tag('function'), tag('end'), tag('if'), tag('then'),
 		tag('lal'), tag('return')])
-	rest, output := parser(input)!
+	rest, output, _ := parser(input)!
 	return rest, Token{output, location, .keyword}
 }
 
@@ -40,19 +40,19 @@ fn identifier(input string, location Location) !(string, Token) {
 }
 
 fn number(input string, location Location) !(string, Token) {
-	rest, output := digit1(input)!
+	rest, output, _ := digit1(input)!
 	return rest, Token{output, location, .number}
 }
 
 fn syntax(input string, location Location) !(string, Token) {
 	parser := one_of(';=(),')
-	rest, output := parser(input)!
+	rest, output, _ := parser(input)!
 	return rest, Token{output, location, .syntax}
 }
 
 fn operator(input string, location Location) !(string, Token) {
 	parser := one_of('+-<')
-	rest, output := parser(input)!
+	rest, output, _ := parser(input)!
 	return rest, Token{output, location, .operator}
 }
 

@@ -12,7 +12,7 @@ fn sexp(f Fn) Fn {
 
 fn main() {
 	parser := sexp(space(take_until(')')))
-	rest, output := parser('(add (sub))')!
+	rest, output, _ := parser('(add (sub))')!
 	println(output)
 	println(rest)
 }
