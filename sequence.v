@@ -76,7 +76,8 @@ pub fn tuple(parsers []Fn) FnMany {
 // Applies a tuple of parsers one by one and returns their results as a string.
 pub fn contact(parsers []Fn) Fn {
 	return fn [parsers] (input string) !(string, string) {
-		rest, output := tuple(parsers)
+		parser := tuple(parsers)
+		rest, output := parser(input)!
 		return rest, output.join('')
 	}
 }
