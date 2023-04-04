@@ -47,3 +47,11 @@ fn test_terminated() ! {
 	assert rest == '}'
 	assert len == 4
 }
+
+fn test_concat() ! {
+	parser := concat([tag('ab'), tag('bd'), tag('c')])
+	rest, output, len := parser('abbdc,dd')!
+	assert output == 'abbdc'
+	assert rest == ',dd'
+	assert len == 5
+}
