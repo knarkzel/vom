@@ -1,5 +1,5 @@
 module vom
 
-fn test_dummy() ? {
+fn test_dummy() ! {
 	assert 1 + 1 == 2
 }

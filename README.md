@@ -40,7 +40,7 @@ fn hex_primary(input string) ?(string, string) {
 fn hex_color(input string) ?(string, Color) {
 	discard := tag('#')
 	hex_part, _ := discard(input) ?
-	parser := tuple(hex_primary, hex_primary, hex_primary)
+	parser := tuple([hex_primary, hex_primary, hex_primary])
 	rest, output := parser(hex_part) ?
 	red, green, blue := from_hex(output[0]) ?, from_hex(output[1]) ?, from_hex(output[2]) ?
 	return rest, Color{red, green, blue}
@@ -121,7 +121,7 @@ nice addition. Instead of following code:
 
 ```v
 fn operator(input string, location Location) ?(string, Token) {
-	parser := alt(tag('+'), tag('-'), tag('<'))
+	parser := alt([tag('+'), tag('-'), tag('<')])
 	rest, output := parser(input) ?
 	return rest, Token{output, location, .operator}
 }
@@ -131,7 +131,7 @@ We could write this instead, which is a very common pattern in `nom`:
 
 ```v
 fn operator(input string, location Location) ?(string, Token) {
-	rest, output := alt(tag('+'), tag('-'), tag('<'))(input) ?
+	rest, output := alt([tag('+'), tag('-'), tag('<')])(input) ?
 	return rest, Token{output, location, .operator}
 }
 ```
@@ -163,5 +163,5 @@ There are examples in the `examples/` folder.
 
 ## Resources
 
-- [nom::recipes](https://docs.rs/nom/7.1.0/nom/recipes/index.html)
+- [nom::recipes](https://docs.rs/nom/7.1.3/nom/recipes/index.html)
 - [nom/examples](https://github.com/Geal/nom/tree/main/examples)

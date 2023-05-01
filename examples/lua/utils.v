@@ -10,15 +10,15 @@ fn debug(location Location, input string, message string) {
 	lines := input.split('\n')[start..start + 5]
 	biggest := (location.y + 3).str().len
 	len := location.x
-	println('$file:${len + 1}:${location.y + 1}: error: $message')
+	println('${file}:${len + 1}:${location.y + 1}: error: ${message}')
 	for i, line in lines {
 		pipe_pad := strings.repeat(` `, biggest - (start + i + 1).str().len + 1)
-		println('   ${start + i + 1}$pipe_pad| $line')
+		println('   ${start + i + 1}${pipe_pad}| ${line}')
 		if start + i == location.y {
 			space := strings.repeat(` `, len)
 			tilde := strings.repeat(`~`, line.len - len)
 			padding := strings.repeat(` `, (start + i).str().len)
-			println('   $padding$pipe_pad| $space$tilde')
+			println('   ${padding}${pipe_pad}| ${space}${tilde}')
 		}
 	}
 }
