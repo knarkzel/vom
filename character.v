@@ -2,38 +2,38 @@ module vom
 
 // Based on https://docs.rs/nom/7.1.3/nom/character/index.html
 
-// Tests if byte is ASCII alphabetic: A-Z, a-z.
-pub fn is_alphabetic(b byte) bool {
+// Tests if u8 is ASCII alphabetic: A-Z, a-z.
+pub fn is_alphabetic(b u8) bool {
 	return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.bytes().any(it == b)
 }
 
-// Tests if byte is ASCII alphanumeric: A-Z, a-z, 0-9.
-pub fn is_alphanumeric(b byte) bool {
+// Tests if u8 is ASCII alphanumeric: A-Z, a-z, 0-9.
+pub fn is_alphanumeric(b u8) bool {
 	return is_alphabetic(b) || is_digit(b)
 }
 
-// Tests if byte is ASCII digit: 0-9.
-pub fn is_digit(b byte) bool {
+// Tests if u8 is ASCII digit: 0-9.
+pub fn is_digit(b u8) bool {
 	return '0123456789'.bytes().any(it == b)
 }
 
-// Tests if byte is ASCII hex digit: 0-9, A-F, a-f.
-pub fn is_hex_digit(b byte) bool {
+// Tests if u8 is ASCII hex digit: 0-9, A-F, a-f.
+pub fn is_hex_digit(b u8) bool {
 	return is_digit(b) || 'ABCDEF'.bytes().any(it == b) || 'abcdef'.bytes().any(it == b)
 }
 
-// Tests if byte is ASCII newline: \n.
-pub fn is_newline(b byte) bool {
+// Tests if u8 is ASCII newline: \n.
+pub fn is_newline(b u8) bool {
 	return b == `\n`
 }
 
-// Tests if byte is ASCII octal digit: 0-7.
-pub fn is_oct_digit(b byte) bool {
+// Tests if u8 is ASCII octal digit: 0-7.
+pub fn is_oct_digit(b u8) bool {
 	return '01234567'.bytes().any(it == b)
 }
 
-// Tests if byte is ASCII space or tab.
-pub fn is_space(b byte) bool {
+// Tests if u8 is ASCII space or tab.
+pub fn is_space(b u8) bool {
 	return ' \t'.bytes().any(it == b)
 }
 
@@ -107,7 +107,7 @@ pub fn line_ending(input string) !(string, string, int) {
 
 // Recognizes zero or more spaces, tabs, carriage returns and line feeds.
 pub fn multispace0(input string) !(string, string, int) {
-	parser := take_while(fn (b byte) bool {
+	parser := take_while(fn (b u8) bool {
 		return ' \t\n\r'.bytes().any(it == b)
 	})
 	return parser(input)
@@ -115,7 +115,7 @@ pub fn multispace0(input string) !(string, string, int) {
 
 // Recognizes one or more spaces, tabs, carriage returns and line feeds.
 pub fn multispace1(input string) !(string, string, int) {
-	parser := take_while1(fn (b byte) bool {
+	parser := take_while1(fn (b u8) bool {
 		return ' \t\n\r'.bytes().any(it == b)
 	})
 	return parser(input)
@@ -143,7 +143,7 @@ pub fn none_of(pattern string) Fn {
 
 // Recognizes a string of any char except '\r\n' or '\n'.
 pub fn not_line_ending(input string) !(string, string, int) {
-	parser := take_while(fn (b byte) bool {
+	parser := take_while(fn (b u8) bool {
 		return '\r\n'.bytes().all(it != b)
 	})
 	return parser(input)
@@ -176,7 +176,7 @@ pub fn one_of(pattern string) Fn {
 }
 
 // Recognizes one character and checks that it satisfies a predicate
-pub fn satisfy(condition fn (byte) bool) Fn {
+pub fn satisfy(condition fn (u8) bool) Fn {
 	return fn [condition] (input string) !(string, string, int) {
 		if input.len == 0 {
 			return error('`satisfy` failed because input is empty')

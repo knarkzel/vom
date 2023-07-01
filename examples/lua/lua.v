@@ -31,7 +31,7 @@ fn keyword(input string, location Location) !(string, Token) {
 }
 
 fn identifier(input string, location Location) !(string, Token) {
-	rest, output := alphanumeric1(input)!
+	rest, output, _ := alphanumeric1(input)!
 	if is_digit(output[0]) {
 		return error('${output} starts with digit')
 	} else {

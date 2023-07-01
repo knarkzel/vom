@@ -100,7 +100,7 @@ fn test_take() ! {
 }
 
 fn test_take_till() ! {
-	parser := take_till(fn (b byte) bool {
+	parser := take_till(fn (b u8) bool {
 		return b == `:`
 	})
 	rest, output, len := parser('latin:123')!
@@ -110,7 +110,7 @@ fn test_take_till() ! {
 }
 
 fn test_take_till1() ! {
-	parser := take_till1(fn (b byte) bool {
+	parser := take_till1(fn (b u8) bool {
 		return b == `:`
 	})
 	rest, output, len := parser(':latin:123')!
