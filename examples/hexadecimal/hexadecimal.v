@@ -3,12 +3,12 @@ module main
 import vom { is_hex_digit, tag, take_while_m_n, tuple }
 
 struct Color {
-	red   byte
-	green byte
-	blue  byte
+	red   u8
+	green u8
+	blue  u8
 }
 
-fn from_hex(input string) byte {
+fn from_hex(input string) u8 {
 	return '0x${input}'.u8()
 }
 

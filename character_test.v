@@ -136,7 +136,7 @@ fn test_one_of() ! {
 }
 
 fn test_satisfy() ! {
-	parser := satisfy(fn (b byte) bool {
+	parser := satisfy(fn (b u8) bool {
 		return b == `a` || b == `b`
 	})
 	rest, output, len := parser('abc')!

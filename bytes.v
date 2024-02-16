@@ -86,7 +86,7 @@ pub fn take(n int) Fn {
 }
 
 // Returns the longest input slice (if any) till a predicate `condition` is met.
-pub fn take_till(condition fn (byte) bool) Fn {
+pub fn take_till(condition fn (u8) bool) Fn {
 	return fn [condition] (input string) !(string, string, int) {
 		for i, c in input.bytes() {
 			if condition(c) {
@@ -98,7 +98,7 @@ pub fn take_till(condition fn (byte) bool) Fn {
 }
 
 // Returns the longest (at least 1) input slice till a predicate `condition` is met.
-pub fn take_till1(condition fn (byte) bool) Fn {
+pub fn take_till1(condition fn (u8) bool) Fn {
 	return fn [condition] (input string) !(string, string, int) {
 		for i, c in input.bytes() {
 			if condition(c) && i > 0 {
@@ -134,7 +134,7 @@ pub fn take_until1(pattern string) Fn {
 }
 
 // Returns the longest input slice (if any) that matches the predicate `condition`.
-pub fn take_while(condition fn (byte) bool) Fn {
+pub fn take_while(condition fn (u8) bool) Fn {
 	return fn [condition] (input string) !(string, string, int) {
 		for i, c in input.bytes() {
 			if !condition(c) {
@@ -146,7 +146,7 @@ pub fn take_while(condition fn (byte) bool) Fn {
 }
 
 // Returns the longest (at least 1) input slice that matches the predicate `condition`.
-pub fn take_while1(condition fn (byte) bool) Fn {
+pub fn take_while1(condition fn (u8) bool) Fn {
 	return fn [condition] (input string) !(string, string, int) {
 		for i, c in input.bytes() {
 			if !condition(c) {
@@ -161,7 +161,7 @@ pub fn take_while1(condition fn (byte) bool) Fn {
 }
 
 // Returns the longest (m <= len <= n) input slice that matches the predicate `condition`.
-pub fn take_while_m_n(m int, n int, condition fn (byte) bool) Fn {
+pub fn take_while_m_n(m int, n int, condition fn (u8) bool) Fn {
 	return fn [m, n, condition] (input string) !(string, string, int) {
 		mut longest := -1
 		for i, c in input.bytes() {
